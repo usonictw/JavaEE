@@ -49,6 +49,34 @@ INSERT INTO dev_skills (id, id_dev, id_skills) VALUES (DEFAULT , 7, 1);
 INSERT INTO dev_skills (id, id_dev, id_skills) VALUES (DEFAULT , 7, 2);
 
 
+INSERT INTO proj_devs (id, id_proj, id_dev) VALUES (DEFAULT, 1, 2);
+INSERT INTO proj_devs (id, id_proj, id_dev) VALUES (DEFAULT, 1, 1);
+INSERT INTO proj_devs (id, id_proj, id_dev) VALUES (DEFAULT, 2, 2);
+INSERT INTO proj_devs (id, id_proj, id_dev) VALUES (DEFAULT, 3, 3);
+INSERT INTO proj_devs (id, id_proj, id_dev) VALUES (DEFAULT, 4, 3);
+INSERT INTO proj_devs (id, id_proj, id_dev) VALUES (DEFAULT, 7, 1);
+INSERT INTO proj_devs (id, id_proj, id_dev) VALUES (DEFAULT, 5, 1);
+INSERT INTO proj_devs (id, id_proj, id_dev) VALUES (DEFAULT, 5, 4);
+INSERT INTO proj_devs (id, id_proj, id_dev) VALUES (DEFAULT, 5, 7);
+INSERT INTO proj_devs (id, id_proj, id_dev) VALUES (DEFAULT, 4, 5);
+INSERT INTO proj_devs (id, id_proj, id_dev) VALUES (DEFAULT, 6, 6);
+INSERT INTO proj_devs (id, id_proj, id_dev) VALUES (DEFAULT, 6, 4);
+
+INSERT INTO comp_projs (id, id_comp, id_projs) VALUES (DEFAULT, 1, 2);
+INSERT INTO comp_projs (id, id_comp, id_projs) VALUES (DEFAULT, 1, 1);
+INSERT INTO comp_projs (id, id_comp, id_projs) VALUES (DEFAULT, 2, 2);
+INSERT INTO comp_projs (id, id_comp, id_projs) VALUES (DEFAULT, 3, 3);
+INSERT INTO comp_projs (id, id_comp, id_projs) VALUES (DEFAULT, 4, 3);
+INSERT INTO comp_projs (id, id_comp, id_projs) VALUES (DEFAULT, 3, 1);
+INSERT INTO comp_projs (id, id_comp, id_projs) VALUES (DEFAULT, 5, 1);
+INSERT INTO comp_projs (id, id_comp, id_projs) VALUES (DEFAULT, 5, 4);
+INSERT INTO comp_projs (id, id_comp, id_projs) VALUES (DEFAULT, 5, 7);
+INSERT INTO comp_projs (id, id_comp, id_projs) VALUES (DEFAULT, 4, 5);
+INSERT INTO comp_projs (id, id_comp, id_projs) VALUES (DEFAULT, 4, 6);
+INSERT INTO comp_projs (id, id_comp, id_projs) VALUES (DEFAULT, 2, 4);
+
+
+
 
 
 
