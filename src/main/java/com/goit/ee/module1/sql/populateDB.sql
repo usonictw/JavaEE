@@ -32,6 +32,7 @@ INSERT INTO projects (id, name) VALUES (DEFAULT, 'NetApplication#1');
 INSERT INTO projects (id, name) VALUES (DEFAULT, 'NetApplication#2');
 INSERT INTO projects (id, name) VALUES (DEFAULT, 'WebApplication#3');
 
+-- filling table dev_skills
 INSERT INTO dev_skills (id, id_dev, id_skills) VALUES (DEFAULT, 1, 1);
 INSERT INTO dev_skills (id, id_dev, id_skills) VALUES (DEFAULT, 2, 1);
 INSERT INTO dev_skills (id, id_dev, id_skills) VALUES (DEFAULT , 3, 1);
@@ -48,7 +49,7 @@ INSERT INTO dev_skills (id, id_dev, id_skills) VALUES (DEFAULT , 7, 3);
 INSERT INTO dev_skills (id, id_dev, id_skills) VALUES (DEFAULT , 7, 1);
 INSERT INTO dev_skills (id, id_dev, id_skills) VALUES (DEFAULT , 7, 2);
 
-
+-- filling table proj_devs
 INSERT INTO proj_devs (id, id_proj, id_dev) VALUES (DEFAULT, 1, 2);
 INSERT INTO proj_devs (id, id_proj, id_dev) VALUES (DEFAULT, 1, 1);
 INSERT INTO proj_devs (id, id_proj, id_dev) VALUES (DEFAULT, 2, 2);
@@ -62,6 +63,7 @@ INSERT INTO proj_devs (id, id_proj, id_dev) VALUES (DEFAULT, 4, 5);
 INSERT INTO proj_devs (id, id_proj, id_dev) VALUES (DEFAULT, 6, 6);
 INSERT INTO proj_devs (id, id_proj, id_dev) VALUES (DEFAULT, 6, 4);
 
+-- filling table comp_projs
 INSERT INTO comp_projs (id, id_comp, id_projs) VALUES (DEFAULT, 1, 2);
 INSERT INTO comp_projs (id, id_comp, id_projs) VALUES (DEFAULT, 1, 1);
 INSERT INTO comp_projs (id, id_comp, id_projs) VALUES (DEFAULT, 2, 2);
@@ -74,6 +76,16 @@ INSERT INTO comp_projs (id, id_comp, id_projs) VALUES (DEFAULT, 5, 7);
 INSERT INTO comp_projs (id, id_comp, id_projs) VALUES (DEFAULT, 4, 5);
 INSERT INTO comp_projs (id, id_comp, id_projs) VALUES (DEFAULT, 4, 6);
 INSERT INTO comp_projs (id, id_comp, id_projs) VALUES (DEFAULT, 2, 4);
+
+-- filling table cust_projs
+INSERT INTO cust_projs (id, id_cust, id_projs) VALUES (DEFAULT, 1, 1);
+INSERT INTO cust_projs (id, id_cust, id_projs) VALUES (DEFAULT, 2, 3);
+INSERT INTO cust_projs (id, id_cust, id_projs) VALUES (DEFAULT, 3, 4);
+INSERT INTO cust_projs (id, id_cust, id_projs) VALUES (DEFAULT, 4, 2);
+INSERT INTO cust_projs (id, id_cust, id_projs) VALUES (DEFAULT, 1, 5);
+INSERT INTO cust_projs (id, id_cust, id_projs) VALUES (DEFAULT, 1, 6);
+INSERT INTO cust_projs (id, id_cust, id_projs) VALUES (DEFAULT, 1, 7);
+
 
 
 
