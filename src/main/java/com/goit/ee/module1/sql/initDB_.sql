@@ -6,3 +6,4 @@ CREATE TABLE customers (id SERIAL PRIMARY KEY NOT NULL, name VARCHAR(30) NOT NUL
 CREATE TABLE dev_skills (id SERIAL PRIMARY KEY NOT NULL, id_dev INT, id_skills INT);
 CREATE TABLE proj_devs (id SERIAL PRIMARY KEY NOT NULL, id_proj INT, id_dev INT);
 CREATE TABLE comp_projs (id SERIAL PRIMARY KEY NOT NULL, id_comp INT, id_projs INT);
+CREATE TABLE cust_projs (id SERIAL PRIMARY KEY NOT NULL, id_cust INT, id_projs INT);
