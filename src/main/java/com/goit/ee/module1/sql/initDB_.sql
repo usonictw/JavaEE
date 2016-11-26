@@ -4,10 +4,10 @@ CREATE TABLE projects (id SERIAL PRIMARY KEY NOT NULL, name VARCHAR(50) NOT NULL
 CREATE TABLE companies (id SERIAL PRIMARY KEY NOT NULL, name VARCHAR(30) NOT NULL, address VARCHAR(50));
 CREATE TABLE customers (id SERIAL PRIMARY KEY NOT NULL, name VARCHAR(30) NOT NULL, address VARCHAR(50));
 CREATE TABLE dev_skills (id SERIAL PRIMARY KEY NOT NULL, id_dev INT, id_skills INT);
-
 CREATE TABLE proj_devs (id SERIAL PRIMARY KEY NOT NULL, id_proj INT, id_dev INT);
 CREATE TABLE comp_projs (id SERIAL PRIMARY KEY NOT NULL, id_comp INT, id_projs INT);
 CREATE TABLE cust_projs (id SERIAL PRIMARY KEY NOT NULL, id_cust INT, id_projs INT);
+
 ALTER TABLE public.dev_skills
   ADD CONSTRAINT skill_dev_dev FOREIGN KEY (id_skills)
       REFERENCES public.skills (id) MATCH FULL
@@ -40,3 +40,5 @@ ALTER TABLE public.cust_projs
   ADD CONSTRAINT cust_proj_proj FOREIGN KEY (id_cust)
       REFERENCES public.projects (id) MATCH FULL
       ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+
