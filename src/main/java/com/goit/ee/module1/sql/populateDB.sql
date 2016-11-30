@@ -82,9 +82,9 @@ INSERT INTO comp_proj (id_comp, id_projs) VALUES (2,4);
 INSERT INTO comp_proj (id_comp, id_projs) VALUES (3,5);
 INSERT INTO comp_proj (id_comp, id_projs) VALUES (4,6);
 
-INSERT INTO cust_projs (id_cust, id_projs) VALUES (1,1);
-INSERT INTO cust_projs (id_cust, id_projs) VALUES (1,2);
-INSERT INTO cust_projs (id_cust, id_projs) VALUES (2,3);
-INSERT INTO cust_projs (id_cust, id_projs) VALUES (3,4);
-INSERT INTO cust_projs (id_cust, id_projs) VALUES (4,5);
-INSERT INTO cust_projs (id_cust, id_projs) VALUES (4,6);
+INSERT INTO cust_proj (id_cust, id_projs) VALUES (1,1);
+INSERT INTO cust_proj (id_cust, id_projs) VALUES (1,2);
+INSERT INTO cust_proj (id_cust, id_projs) VALUES (2,3);
+INSERT INTO cust_proj (id_cust, id_projs) VALUES (3,4);
+INSERT INTO cust_proj (id_cust, id_projs) VALUES (4,5);
+INSERT INTO cust_proj (id_cust, id_projs) VALUES (4,6);
