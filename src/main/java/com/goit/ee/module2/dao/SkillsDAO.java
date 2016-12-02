@@ -1,9 +1,8 @@
 package com.goit.ee.module2.dao;
 
-/**
- * Created by user on 01.12.2016.
- */
-public class SkillsDAO implements DAO{
 
+public interface SkillsDAO extends DAO {
+
+    void findByName(String nameSkills);
 
 }
