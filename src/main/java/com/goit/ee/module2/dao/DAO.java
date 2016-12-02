@@ -1,6 +1,13 @@
 package com.goit.ee.module2.dao;
 
-public interface DAO {
+import java.util.List;
 
-    void create();
+public interface DAO<T>{
+
+    void create(T t);
+    List<T> read(T t);
+    void update(T t);
+    void delete(T t);
+
+
 }

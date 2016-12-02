@@ -1,11 +1,7 @@
 package com.goit.ee.module2.dao;
 
+import com.goit.ee.module2.dto.Project;
 
-/**
- * Created by PC on 01.12.2016.
- */
-public interface ProjectsDAO extends DAO {
-
+public interface ProjectsDAO extends DAO<Project> {
     void findByName(String nameProject);
-
 }
