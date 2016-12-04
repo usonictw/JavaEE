@@ -41,7 +41,6 @@ public class DeveloperDAOImpl implements DevelopersDAO {
         return output;
     }
 
-
     public boolean create(Developer developer) {
         PreparedStatement ps = null;
         try {
@@ -55,14 +54,21 @@ public class DeveloperDAOImpl implements DevelopersDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return false;
 
-
-        //INSERT INTO developers (first_name, last_name, age) VALUES ('Leolani', 'Richey', 25),
     }
 
     public boolean get(long id) {
+        try {
+            PreparedStatement ps = connection.prepareStatement("SELECT * from developers WHERE id = ?");
+            ps.setLong(1, id);
+            ResultSet resultSet = ps.executeQuery();
+            String output = "ID------First_Name-------LastName--------Age\n";
+            System.out.println(printingResultSet(resultSet));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return false;
     }
 
