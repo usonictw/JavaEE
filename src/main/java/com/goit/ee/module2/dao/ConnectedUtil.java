@@ -9,7 +9,7 @@ import java.sql.SQLException;
  */
 public class ConnectedUtil {
 
-    private final String url = "jdbc:postgresql://localhost:5432/postgres";
+    private final String url = "jdbc:postgresql://localhost:5432/module1";
     private final String user = "usonic";
     private final String password = "123";
     private final String driver = "org.postgresql.Driver";

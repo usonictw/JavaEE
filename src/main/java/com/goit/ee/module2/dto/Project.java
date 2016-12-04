@@ -57,4 +57,13 @@ public class Project {
         result = 31 * result + cost;
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", cost=" + cost +
+                '}';
+    }
 }
