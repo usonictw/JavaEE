@@ -73,6 +73,21 @@ public class DeveloperDAOImpl implements DevelopersDAO {
     }
 
     public boolean update(Developer developer) {
+        try {
+            PreparedStatement ps = connection.prepareStatement("UPDATE developers " +
+                    "set first_name=?, last_name=?, age=?" +
+                    " WHERE id=?");
+            ps.setString(1, developer.getFirstName());
+            ps.setString(2, developer.getLastName());
+            ps.setInt(3, developer.getAge());
+            ps.setLong(4, developer.getId());
+           int updResult = ps.executeUpdate();
+            System.out.println(updResult+" entry(s) was(were) updated in DB");
+            showAllData();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return false;
     }
 
