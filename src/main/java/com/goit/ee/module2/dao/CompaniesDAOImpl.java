@@ -1,5 +1,6 @@
 package com.goit.ee.module2.dao;
 
+import com.goit.ee.module2.dto.Company;
 import com.goit.ee.module2.dto.Developer;
 
 import java.sql.*;
@@ -7,7 +8,7 @@ import java.sql.*;
 /**
  * Created by Alex on 04.12.2016.
  */
-public class DeveloperDAOImpl implements DevelopersDAO {
+public class CompaniesDAOImpl implements CompaniesDAO {
     private static Connection connection;
 
     static {
@@ -26,15 +27,13 @@ public class DeveloperDAOImpl implements DevelopersDAO {
         String output;
 
         try {
-            output = "ID------First_Name-------LastName--------Age-------Salary\n";
+            output = "ID------Name-------Address\n";
             while (rs.next()) {
 
                 int id = rs.getInt("id");
-                String first_name = rs.getString("first_name");
-                String last_name = rs.getString("last_name");
-                int age = rs.getInt("age");
-                double salary = rs.getDouble("salary");
-                output = output + id + "-----" + first_name + "-----" + last_name + "-----" + age + "------" + salary + "\n";
+                String name = rs.getString("name");
+                String address = rs.getString("address");
+                output = output + id + "-----" + name + "-----" + address + "\n";
             }
         } finally {
             rs.close();
@@ -42,14 +41,12 @@ public class DeveloperDAOImpl implements DevelopersDAO {
         return output;
     }
 
-    public boolean create(Developer developer) {
+    public boolean create(Company company) {
         PreparedStatement ps = null;
         try {
-            ps = connection.prepareStatement("INSERT INTO developers (first_name, last_name, age,salary) VALUES (?, ?,?,?)");
-            ps.setString(1, developer.getFirstName());
-            ps.setString(2, developer.getLastName());
-            ps.setInt(3, developer.getAge());
-            ps.setDouble(4, developer.getSalary());
+            ps = connection.prepareStatement("INSERT INTO companies (name, address) VALUES (?, ?)");
+            ps.setString(1, company.getName());
+            ps.setString(2, company.getAddress());
             if (ps.executeUpdate() == 1) {
                 System.out.println("Entry was successfully added to DB");
                 showAllData();
@@ -69,7 +66,7 @@ public class DeveloperDAOImpl implements DevelopersDAO {
 
     public boolean get(long id) {
         try {
-            PreparedStatement ps = connection.prepareStatement("SELECT * from developers WHERE id = ?");
+            PreparedStatement ps = connection.prepareStatement("SELECT * from companies WHERE id = ?");
             ps.setLong(1, id);
             ResultSet resultSet = ps.executeQuery();
             if (resultSet != null) {
@@ -84,16 +81,14 @@ public class DeveloperDAOImpl implements DevelopersDAO {
         return false;
     }
 
-    public boolean update(Developer developer) {
+    public boolean update(Company company) {
         try {
-            PreparedStatement ps = connection.prepareStatement("UPDATE developers " +
-                    "set first_name=?, last_name=?, age=?, salary=?" +
+            PreparedStatement ps = connection.prepareStatement("UPDATE companies " +
+                    "set name=?, address=?" +
                     " WHERE id=?");
-            ps.setString(1, developer.getFirstName());
-            ps.setString(2, developer.getLastName());
-            ps.setInt(3, developer.getAge());
-            ps.setDouble(4, developer.getSalary());
-            ps.setLong(5, developer.getId());
+            ps.setString(1, company.getName());
+            ps.setString(2, company.getAddress());
+            ps.setLong(3, company.getId());
             if (ps.executeUpdate() == 1) {
                 System.out.println("Entry was found and updated.");
                 showAllData();
@@ -108,7 +103,7 @@ public class DeveloperDAOImpl implements DevelopersDAO {
     public boolean delete(long id) {
         PreparedStatement ps;
         try {
-            ps = connection.prepareStatement("DELETE FROM developers WHERE id=?");
+            ps = connection.prepareStatement("DELETE FROM companies WHERE id=?");
             ps.setLong(1, id);
             int delResult;
             try {
@@ -117,12 +112,11 @@ public class DeveloperDAOImpl implements DevelopersDAO {
                     System.out.println("Entry was deleted from DB.");
                     showAllData();
                     return true;
-                } else System.out.println("Not found entry");
+                } else System.out.println("Entry not found");
             } catch (SQLException e) {
                 System.out.println("Failure in deleting entry");
                 return false;
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -131,7 +125,7 @@ public class DeveloperDAOImpl implements DevelopersDAO {
 
     public boolean findByName(String name) {
         try {
-            PreparedStatement ps = connection.prepareStatement("SELECT * from developers WHERE first_name = ?");
+            PreparedStatement ps = connection.prepareStatement("SELECT * from companies WHERE name = ?");
             ps.setString(1, name);
             ResultSet resultSet = ps.executeQuery();
             if (resultSet != null) {
@@ -145,28 +139,11 @@ public class DeveloperDAOImpl implements DevelopersDAO {
         return false;
     }
 
-    public boolean findByNameAndLastName(String name, String lastName) {
-        try {
-            PreparedStatement ps = connection.prepareStatement("SELECT * from developers WHERE first_name = ? and last_name=?");
-            ps.setString(1, name);
-            ps.setString(2, lastName);
-            ResultSet resultSet = ps.executeQuery();
-            if (resultSet != null) {
-                System.out.println("Entry(s) with Name = " + name + " and Last Name ="+lastName+" was found");
-                System.out.println(printingResultSet(resultSet));
-                return true;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
     public void showAllData() {
         Statement statement=null;
         try {
            statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * from developers ORDER BY id");
+            ResultSet rs = statement.executeQuery("SELECT * from companies ORDER BY id");
             System.out.println(printingResultSet(rs));
         } catch (SQLException e) {
             e.printStackTrace();
