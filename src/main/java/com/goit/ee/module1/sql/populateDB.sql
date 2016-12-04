@@ -75,16 +75,16 @@ INSERT INTO proj_dev (id_proj, id_dev) VALUES (6,2);
 INSERT INTO proj_dev (id_proj, id_dev) VALUES (6,3);
 INSERT INTO proj_dev (id_proj, id_dev) VALUES (6,13);
 
-INSERT INTO comp_proj (id_comp, id_projs) VALUES (1,1);
-INSERT INTO comp_proj (id_comp, id_projs) VALUES (1,2);
-INSERT INTO comp_proj (id_comp, id_projs) VALUES (2,3);
-INSERT INTO comp_proj (id_comp, id_projs) VALUES (2,4);
-INSERT INTO comp_proj (id_comp, id_projs) VALUES (3,5);
-INSERT INTO comp_proj (id_comp, id_projs) VALUES (4,6);
+INSERT INTO comp_proj (id_comp, id_proj) VALUES (1,1);
+INSERT INTO comp_proj (id_comp, id_proj) VALUES (1,2);
+INSERT INTO comp_proj (id_comp, id_proj) VALUES (2,3);
+INSERT INTO comp_proj (id_comp, id_proj) VALUES (2,4);
+INSERT INTO comp_proj (id_comp, id_proj) VALUES (3,5);
+INSERT INTO comp_proj (id_comp, id_proj) VALUES (4,6);
 
-INSERT INTO cust_proj (id_cust, id_projs) VALUES (1,1);
-INSERT INTO cust_proj (id_cust, id_projs) VALUES (1,2);
-INSERT INTO cust_proj (id_cust, id_projs) VALUES (2,3);
-INSERT INTO cust_proj (id_cust, id_projs) VALUES (3,4);
-INSERT INTO cust_proj (id_cust, id_projs) VALUES (4,5);
-INSERT INTO cust_proj (id_cust, id_projs) VALUES (4,6);
+INSERT INTO cust_proj (id_cust, id_proj) VALUES (1,1);
+INSERT INTO cust_proj (id_cust, id_proj) VALUES (1,2);
+INSERT INTO cust_proj (id_cust, id_proj) VALUES (2,3);
+INSERT INTO cust_proj (id_cust, id_proj) VALUES (3,4);
+INSERT INTO cust_proj (id_cust, id_proj) VALUES (4,5);
+INSERT INTO cust_proj (id_cust, id_proj) VALUES (4,6);
