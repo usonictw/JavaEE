@@ -26,14 +26,15 @@ public class DeveloperDAOImpl implements DevelopersDAO {
         String output;
 
         try {
-            output = "ID------First_Name-------LastName--------Age\n";
+            output = "ID------First_Name-------LastName--------Age-------Salary\n";
             while (rs.next()) {
 
                 int id = rs.getInt("id");
                 String first_name = rs.getString("first_name");
                 String last_name = rs.getString("last_name");
                 int age = rs.getInt("age");
-                output = output + id + "-----" + first_name + "-----" + last_name + "-----" + age + "\n";
+                double salary = rs.getDouble("salary");
+                output = output + id + "-----" + first_name + "-----" + last_name + "-----" + age + "------" + salary + "\n";
             }
         } finally {
             rs.close();
@@ -44,18 +45,26 @@ public class DeveloperDAOImpl implements DevelopersDAO {
     public boolean create(Developer developer) {
         PreparedStatement ps = null;
         try {
-            ps = connection.prepareStatement("INSERT INTO developers (first_name, last_name, age) VALUES (?, ?,?)");
-            ps.setString(1,developer.getFirstName());
-            ps.setString(2,developer.getLastName());
-            ps.setInt(3,developer.getAge());
-            int updResult = ps.executeUpdate();
-            System.out.println(updResult+" entry(s) was(were) added to DB");
-            showAllData();
+            ps = connection.prepareStatement("INSERT INTO developers (first_name, last_name, age,salary) VALUES (?, ?,?,?)");
+            ps.setString(1, developer.getFirstName());
+            ps.setString(2, developer.getLastName());
+            ps.setInt(3, developer.getAge());
+            ps.setDouble(4, developer.getSalary());
+            if (ps.executeUpdate() == 1) {
+                System.out.println("Entry was successfully added to DB");
+                showAllData();
+                return true;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                ps.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return false;
-
     }
 
     public boolean get(long id) {
@@ -63,8 +72,11 @@ public class DeveloperDAOImpl implements DevelopersDAO {
             PreparedStatement ps = connection.prepareStatement("SELECT * from developers WHERE id = ?");
             ps.setLong(1, id);
             ResultSet resultSet = ps.executeQuery();
-            String output = "ID------First_Name-------LastName--------Age\n";
-            System.out.println(printingResultSet(resultSet));
+            if (resultSet != null) {
+                System.out.println(("Record with ID = " + id + " found"));
+                System.out.println(printingResultSet(resultSet));
+                return true;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -75,74 +87,87 @@ public class DeveloperDAOImpl implements DevelopersDAO {
     public boolean update(Developer developer) {
         try {
             PreparedStatement ps = connection.prepareStatement("UPDATE developers " +
-                    "set first_name=?, last_name=?, age=?" +
+                    "set first_name=?, last_name=?, age=?, salary=?" +
                     " WHERE id=?");
             ps.setString(1, developer.getFirstName());
             ps.setString(2, developer.getLastName());
             ps.setInt(3, developer.getAge());
-            ps.setLong(4, developer.getId());
-           int updResult = ps.executeUpdate();
-            System.out.println(updResult+" entry(s) was(were) updated in DB");
-            showAllData();
+            ps.setDouble(4, developer.getSalary());
+            ps.setLong(5, developer.getId());
+            if (ps.executeUpdate() == 1) {
+                System.out.println("Entry was found and updated.");
+                showAllData();
+                return true;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return false;
     }
 
     public boolean delete(long id) {
-        PreparedStatement ps = null;
+        PreparedStatement ps;
         try {
             ps = connection.prepareStatement("DELETE FROM developers WHERE id=?");
-            ps.setLong(1,id);
-            int updResult = ps.executeUpdate();
-            System.out.println(updResult+" entry(s) was(were) deleted from DB");
-            showAllData();
+            ps.setLong(1, id);
+            if (ps.executeUpdate() == 1) {
+                System.out.println("Entry was deleted from DB.");
+                showAllData();
+                return true;
+            } else System.out.println("Failure in deleting entry");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return false;
-
     }
 
-    public void findByName(String name) {
+    public boolean findByName(String name) {
         try {
             PreparedStatement ps = connection.prepareStatement("SELECT * from developers WHERE first_name = ?");
             ps.setString(1, name);
             ResultSet resultSet = ps.executeQuery();
-            String output = "ID------First_Name-------LastName--------Age\n";
-            System.out.println(printingResultSet(resultSet));
+            if (resultSet != null) {
+                System.out.println("Entry(s) with Name = " + name + " was found");
+                System.out.println(printingResultSet(resultSet));
+                return true;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
+        return false;
     }
 
-    public void findByNameAndLastName(String name, String lastName) {
+    public boolean findByNameAndLastName(String name, String lastName) {
         try {
             PreparedStatement ps = connection.prepareStatement("SELECT * from developers WHERE first_name = ? and last_name=?");
             ps.setString(1, name);
             ps.setString(2, lastName);
             ResultSet resultSet = ps.executeQuery();
-            String output = "ID------First_Name-------LastName--------Age\n";
-            System.out.println(printingResultSet(resultSet));
+            if (resultSet != null) {
+                System.out.println("Entry(s) with Name = " + name + " and Last Name ="+lastName+" was found");
+                System.out.println(printingResultSet(resultSet));
+                return true;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        return false;
     }
 
     public void showAllData() {
+        Statement statement=null;
         try {
-            Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * from developers");
+           statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * from developers ORDER BY id");
             System.out.println(printingResultSet(rs));
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
-
     }
 }

@@ -14,6 +14,6 @@ import com.goit.ee.module2.dto.Developer;
 //    Create DevelopersDAOImpl class which implements DeveloperDAO interface and implement all methods using JDBC.
 
 public interface DevelopersDAO extends DAO<Developer> {
-    void findByName(String name);
-    void findByNameAndLastName(String name, String lastName);
+    boolean findByName(String name);
+    boolean findByNameAndLastName(String name, String lastName);
 }
