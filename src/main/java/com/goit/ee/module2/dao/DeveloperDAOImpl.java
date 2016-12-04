@@ -71,7 +71,19 @@ public class DeveloperDAOImpl implements DevelopersDAO {
     }
 
     public boolean delete(long id) {
+        PreparedStatement ps = null;
+        try {
+            ps = connection.prepareStatement("DELETE FROM developers WHERE id=?");
+            ps.setLong(1,id);
+            int updResult = ps.executeUpdate();
+            System.out.println(updResult+" entry(s) was(were) deleted from DB");
+            showAllData();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return false;
+
     }
 
     public void findByName(String name) {
