@@ -1,4 +1,4 @@
-package com.goit.ee.module2;
+package com.goit.ee.module2.contoller;
 
 public enum Command {
     CREATE,
