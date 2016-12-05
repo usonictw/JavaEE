@@ -1,8 +1,9 @@
 package com.goit.ee.module2.dao;
-
 import com.goit.ee.module2.dto.Project;
-
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,28 +11,7 @@ public class ProjectDAOImpl implements ProjectsDAO {
 
     ConnectedUtil connectedUtil = new ConnectedUtil();
 
-    private void preparedStatement(String name, int cost, String query) {
-        try (PreparedStatement preparedStatement = connectedUtil.getConnection().prepareStatement(query)) {
-            preparedStatement.setString(1, name);
-            preparedStatement.setInt(2, cost);
-            preparedStatement.executeUpdate();
-        } catch (SQLException e1) {
-            e1.printStackTrace();
-        }
-    }
-
-    @Override
-    public void create(Project pr) {
-        if (pr != null) {
-            String query = "INSERT INTO module1.public.projects(name, cost) VALUES (?,?)";
-            preparedStatement(pr.getName(), pr.getCost(), query);
-        } else {
-            System.out.println("projects's name is NULL");
-        }
-    }
-
-    @Override
-    public List<Project> read() {
+    public List<Project> getAll() {
         List<Project> projectList = new ArrayList<>();
         String queryRead = "SELECT * FROM projects";
         try (Statement statement = connectedUtil.getConnection().createStatement()) {
@@ -47,50 +27,157 @@ public class ProjectDAOImpl implements ProjectsDAO {
     }
 
     @Override
-    public void update(Project pr) {
-        String query = "UPDATE projects SET name = ?, cost = ? WHERE id = ?";
-        preparedStatement(pr.getName(), pr.getCost(), query);
+    public boolean create(Project pr) {
+        boolean flag = false;
+        if (pr != null) {
+            String query = "INSERT INTO projects(name, cost) VALUES (?,?)";
+            try (PreparedStatement preparedStatement = connectedUtil.getConnection().prepareStatement(query)) {
+                preparedStatement.setString(1, pr.getName());
+                preparedStatement.setInt(2, pr.getCost());
+                int count = preparedStatement.executeUpdate();
+                if (count == 1) {
+                    System.out.println("The Project added to DB successful");
+                    getAll().forEach(System.out::println);
+                    flag = true;
+                }
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            return flag;
+        } else {
+            System.out.println("projects's name is NULL");
+            return flag;
+        }
     }
 
     @Override
-    public void delete(Project pr) {
-        String query = "DELETE FROM projects WHERE name = ? OR cost = ?";
-        preparedStatement(pr.getName(), pr.getCost(), query);
+    public boolean get(long id) {
+        boolean flag = false;
+        if (id != 0) {
+            String query = "SELECT * FROM projects WHERE id = ?";
+            try (PreparedStatement preparedStatement = connectedUtil.getConnection().prepareStatement(query)) {
+                preparedStatement.setLong(1, id);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()) {
+                    System.out.println(new Project(resultSet.getInt("id"),
+                            resultSet.getString("name"),
+                            resultSet.getInt("cost")));
+                    flag = true;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return flag;
+        } else {
+            System.out.println("ID parameter can not be 0");
+            return flag;
+        }
+    }
+
+    @Override
+    public boolean delete(long id) {
+        boolean flag = false;
+        if (id != 0) {
+            String query = "DELETE FROM projects WHERE id = ?";
+            try (PreparedStatement preparedStatement = connectedUtil.getConnection().prepareStatement(query)) {
+                preparedStatement.setLong(1, id);
+                int count = preparedStatement.executeUpdate();
+                if (count == 1) {
+                    getAll().forEach(System.out::println);
+                    flag = true;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return flag;
+        } else {
+            System.out.println("ID parameter can not be 0");
+            return flag;
+        }
+    }
+
+    @Override
+    public boolean update(Project pr) {
+        boolean flag = false;
+        if (pr != null) {
+            String query = "UPDATE projects SET name = ?, cost = ? WHERE id = ?";
+            try (PreparedStatement preparedStatement = connectedUtil.getConnection().prepareStatement(query)) {
+                preparedStatement.setString(1, pr.getName());
+                preparedStatement.setInt(2, pr.getCost());
+                preparedStatement.setLong(3, pr.getId());
+                int count = preparedStatement.executeUpdate();
+                if (count == 1) {
+                    System.out.println("The Project added to DB successful");
+                    getAll().forEach(System.out::println);
+                    flag = true;
+                }
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            return flag;
+        } else {
+            System.out.println("the projects can not be NULL");
+            return flag;
+        }
     }
 
     @Override
     public List<Project> findByName(String nameProject) {
         List<Project> projectList = new ArrayList<>();
-        String queryFind = "SELECT * FROM projects WHERE name = ?";
-        try (PreparedStatement preparedStatement = connectedUtil.getConnection().prepareStatement(queryFind)) {
-            preparedStatement.setString(1, nameProject);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                projectList.add(new Project(resultSet.getInt("id"),
-                        resultSet.getString("name"),
-                        resultSet.getInt("cost")));
+        if (nameProject != null) {
+            String queryFind = "SELECT * FROM projects WHERE name = ?";
+            try (PreparedStatement preparedStatement = connectedUtil.getConnection().prepareStatement(queryFind)) {
+                preparedStatement.setString(1, nameProject);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if(!resultSet.next()) {
+                    System.out.println("Project's name not found");
+                }
+                while (resultSet.next()) {
+                    projectList.add(new Project(resultSet.getInt("id"),
+                            resultSet.getString("name"),
+                            resultSet.getInt("cost")));
+                }
+            } catch (SQLException e1) {
+                e1.printStackTrace();
             }
-        } catch (SQLException e1) {
-            e1.printStackTrace();
+            return projectList;
+        } else {
+            System.out.println("Project name can not NULL");
+            return projectList;
         }
-        return projectList;
     }
 
     @Override
     public List<Project> findByCost(int cost) {
         List<Project> projectList = new ArrayList<>();
-        String queryFind = "SELECT * FROM projects WHERE cost = ?";
-        try (PreparedStatement preparedStatement = connectedUtil.getConnection().prepareStatement(queryFind)) {
-            preparedStatement.setInt(1, cost);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                projectList.add(new Project(resultSet.getInt("id"),
-                        resultSet.getString("name"),
-                        resultSet.getInt("cost")));
+        if(cost != 0) {
+            String queryFind = "SELECT * FROM projects WHERE cost = ?";
+            try (PreparedStatement preparedStatement = connectedUtil.getConnection().prepareStatement(queryFind)) {
+                preparedStatement.setInt(1, cost);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if(!resultSet.next()) {
+                    System.out.println("Project's cost not found");
+                }
+                while (resultSet.next()) {
+                    projectList.add(new Project(resultSet.getInt("id"),
+                            resultSet.getString("name"),
+                            resultSet.getInt("cost")));
+                }
+            } catch (SQLException e1) {
+                e1.printStackTrace();
             }
-        } catch (SQLException e1) {
-            e1.printStackTrace();
+            return projectList;
+        }else {
+            System.out.println("Project cost can not be 0");
+            return projectList;
         }
-        return projectList;
+    }
+
+    public static void main(String[] args) {
+        ProjectDAOImpl projectDAO = new ProjectDAOImpl();
+
+        Project project = new Project(1, "proj2", 30000);
+       // projectDAO.getAll().forEach(System.out::println);
+        System.out.println(projectDAO.findByName("Qr Scan1"));
     }
 }

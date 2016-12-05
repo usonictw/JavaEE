@@ -4,9 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-/**
- * Created by PC on 01.12.2016.
- */
 public class ConnectedUtil {
 
     private final String url = "jdbc:postgresql://localhost:5432/module1";
