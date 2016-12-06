@@ -12,24 +12,46 @@ import java.io.InputStreamReader;
  */
 public class ProjectController implements Executable {
 
-    private Project project = new Project();
+    private String dataInput() {
+        String dataInput = null;
+        int countLine = 1;
+        while (countLine > 0) {
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
+                dataInput = br.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            countLine--;
+        }
+
+        return dataInput;
+    }
 
     @Override
     public void execute(Command command) {
         ProjectDAOImpl projectDAO = new ProjectDAOImpl();
         if (command.equals(Command.CREATE)) {
-            int countLine = 1;
-            while (countLine > 0) {
-                try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
-                    String input = br.readLine();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                countLine--;
-
-
+            System.out.println("Input projects name");
+            String projectName = dataInput();
+            System.out.println("Input projects cost");
+            String projCostStr = dataInput();
+            int projectCost = 0;
+            try {
+                projectCost = Integer.valueOf(projCostStr);
+            } catch (NumberFormatException e) {
+                System.out.println("input cost correctly");
             }
-            //projectDAO.create()
+            projectDAO.create(new Project(1, projectName, projectCost));
         }
     }
+
+
+    public static void main(String[] args) {
+
+        ProjectController projectController = new ProjectController();
+
+        projectController.execute(Command.CREATE);
+    }
 }
+
+
