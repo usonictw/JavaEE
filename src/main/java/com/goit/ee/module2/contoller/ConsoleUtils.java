@@ -7,61 +7,42 @@ import java.io.InputStreamReader;
 /**
  * Created by user on 06.12.2016.
  */
-public  class ConsoleUtils {
+public class ConsoleUtils {
 
     public static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-    public static void printMassege(){
+    public static void printMessage() {
         System.out.println("The Project added to DB successful");
         System.out.println("projects's name is NULL");
     }
 
-    public static String readProjectName() {
-        String projectName = null;
-        System.out.println("Input projects name");
+    public static String readParameter(String parameter) {
+
+        System.out.println("Input " + parameter);
         try {
-            projectName = br.readLine();
+            parameter = br.readLine();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return projectName;
+        return parameter;
     }
 
-    public static int getProjectCost() {
-        String projCostStr = null;
-        int projectCost = 0;
-        System.out.println("Input projects cost");
+    public static int getParam(String parameter) {
+        int paramInt = 0;
+        System.out.println("Input " + parameter);
         try {
-            projCostStr = br.readLine();
+            parameter = br.readLine();
         } catch (IOException e) {
             e.printStackTrace();
         }
         try {
-            if (projCostStr != null) {
-                projectCost = Integer.valueOf(projCostStr);
+            if (parameter != null) {
+                paramInt = Integer.valueOf(parameter);
             }
         } catch (NumberFormatException | NullPointerException e) {
-            System.out.println("input cost correctly");
+            System.out.println("input parameter correctly");
         }
-        return projectCost;
+        return paramInt;
     }
 
-    public static int getProjectId() {
-        String projIdStr = null;
-        int projectId = 0;
-        System.out.println("Input projects id");
-        try {
-            projIdStr = br.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            if (projIdStr != null) {
-                projectId = Integer.valueOf(projIdStr);
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("input cost correctly");
-        }
-        return projectId;
-    }
 }
