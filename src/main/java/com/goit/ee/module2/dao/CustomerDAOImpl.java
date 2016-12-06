@@ -14,9 +14,9 @@ import java.util.List;
 public class CustomerDAOImpl implements CustomerDAO {
 
     ConnectedUtil connectedUtil = new ConnectedUtil();
-    private static final String columnId = "id";
-    private static final String columnName = "name";
-    private static final String columnAddress = "address";
+    public static final String columnId = "id";
+    public static final String columnName = "name";
+    public static final String columnAddress = "address";
 
     private String selectAll = "SELECT * FROM customers";
     private String queryInsert = "INSERT INTO customers(name, address) VALUES (?,?)";
