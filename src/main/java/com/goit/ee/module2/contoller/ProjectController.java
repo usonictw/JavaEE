@@ -2,7 +2,8 @@ package com.goit.ee.module2.contoller;
 
 import com.goit.ee.module2.dao.ProjectDAOImpl;
 import com.goit.ee.module2.dto.Project;
-import java.io.IOException;
+import static com.goit.ee.module2.contoller.ConsoleUtils.*;
+import static com.goit.ee.module2.dao.ProjectDAOImpl.*;
 
 public class ProjectController implements Executable {
 
@@ -10,69 +11,25 @@ public class ProjectController implements Executable {
 
     @Override
     public void execute(Command command) {
-
         switch (command) {
             case CREATE:
                 Project project = new Project();
-                project.setName(readProjectName());
-                project.setCost(getProjectCost());
+                project.setName(readParameter(name));
+                project.setCost(getParam(cost));
                 projectDAO.create(project);
+                break;
             case READ:
-                projectDAO.get(getProjectId());
+                projectDAO.get(getParam(id));
+                break;
             case UPDATE:
-                projectDAO.update(new Project(getProjectId(), readProjectName(), getProjectCost()));
+                projectDAO.update(new Project(getParam(id),
+                        readParameter(id),
+                        getParam(id)));
+                break;
             case DELETE:
-                projectDAO.delete(getProjectId());
+                projectDAO.delete(getParam(id));
+                break;
         }
-    }
-
-    private String readProjectName() {
-        String projectName = null;
-        System.out.println("Input projects name");
-        try {
-            projectName = ConsoleUtils.br.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return projectName;
-    }
-
-    private int getProjectCost() {
-        String projCostStr = null;
-        int projectCost = 0;
-        System.out.println("Input projects cost");
-        try {
-            projCostStr = ConsoleUtils.br.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            if (projCostStr != null) {
-                projectCost = Integer.valueOf(projCostStr);
-            }
-        } catch (NumberFormatException | NullPointerException e) {
-            System.out.println("input cost correctly");
-        }
-        return projectCost;
-    }
-
-    private int getProjectId() {
-        String projIdStr = null;
-        int projectId = 0;
-        System.out.println("Input projects id");
-        try {
-            projIdStr = ConsoleUtils.br.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            if (projIdStr != null) {
-                projectId = Integer.valueOf(projIdStr);
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("input cost correctly");
-        }
-        return projectId;
     }
 }
 
