@@ -2,12 +2,9 @@ package com.goit.ee.module2.contoller;
 
 import com.goit.ee.module2.dao.ProjectDAOImpl;
 import com.goit.ee.module2.dto.Project;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 public class ProjectController implements Executable {
-
 
     private ProjectDAOImpl projectDAO = new ProjectDAOImpl();
 
@@ -33,7 +30,7 @@ public class ProjectController implements Executable {
         String projectName = null;
         System.out.println("Input projects name");
         try {
-            projectName = br.readLine();
+            projectName = ConsoleUtils.br.readLine();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -45,7 +42,7 @@ public class ProjectController implements Executable {
         int projectCost = 0;
         System.out.println("Input projects cost");
         try {
-            projCostStr = br.readLine();
+            projCostStr = ConsoleUtils.br.readLine();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -64,7 +61,7 @@ public class ProjectController implements Executable {
         int projectId = 0;
         System.out.println("Input projects id");
         try {
-            projIdStr = br.readLine();
+            projIdStr = ConsoleUtils.br.readLine();
         } catch (IOException e) {
             e.printStackTrace();
         }

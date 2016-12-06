@@ -19,7 +19,7 @@ public class ProjectDAOImpl implements ProjectsDAO {
     private String selectAll = "SELECT * FROM projects";
     private String queryInsert = "INSERT INTO projects(name, cost) VALUES (?,?)";
     private String selectById = "SELECT * FROM projects WHERE id = ?";
-    private String deleteByID = "DELETE FROM projects WHERE id = ?";
+    private String deleteById = "DELETE FROM projects WHERE id = ?";
     private String update = "UPDATE projects SET name = ?, cost = ? WHERE id = ?";
     private String selectByName = "SELECT * FROM projects WHERE name = ?";
     private String selectByCost = "SELECT * FROM projects WHERE cost = ?";
@@ -82,7 +82,7 @@ public class ProjectDAOImpl implements ProjectsDAO {
     public boolean delete(long id) {
         boolean flag = false;
         if (id != 0) {
-            try (PreparedStatement preparedStatement = connectedUtil.getConnection().prepareStatement(deleteByID)) {
+            try (PreparedStatement preparedStatement = connectedUtil.getConnection().prepareStatement(deleteById)) {
                 preparedStatement.setLong(1, id);
                 int count = preparedStatement.executeUpdate();
                 if (count == 1) {

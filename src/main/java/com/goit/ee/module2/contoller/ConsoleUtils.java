@@ -7,16 +7,16 @@ import java.io.InputStreamReader;
 /**
  * Created by user on 06.12.2016.
  */
-public class ConsoleUtils {
+public  class ConsoleUtils {
 
-    private BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    public static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-    private void printMassege(){
+    public static void printMassege(){
         System.out.println("The Project added to DB successful");
         System.out.println("projects's name is NULL");
     }
 
-    private String readProjectName() {
+    public static String readProjectName() {
         String projectName = null;
         System.out.println("Input projects name");
         try {
@@ -27,7 +27,7 @@ public class ConsoleUtils {
         return projectName;
     }
 
-    private int getProjectCost() {
+    public static int getProjectCost() {
         String projCostStr = null;
         int projectCost = 0;
         System.out.println("Input projects cost");
@@ -46,7 +46,7 @@ public class ConsoleUtils {
         return projectCost;
     }
 
-    private int getProjectId() {
+    public static int getProjectId() {
         String projIdStr = null;
         int projectId = 0;
         System.out.println("Input projects id");

@@ -12,37 +12,36 @@ import java.util.List;
 public class SkillsDAOImpl implements SkillsDAO {
 
     ConnectedUtil connectedUtil = new ConnectedUtil();
-    private static final String id = "id";
-    private static final String name = "name";
+    private static final String columnId = "id";
+    private static final String columnName = "name";
 
-    private String selectAll = "SELECT * FROM Skills";
-    private String insert = "INSERT INTO Skills(name, cost) VALUES (?,?)";
-    private String selectById = "SELECT * FROM Skills WHERE id = ?";
-    private String deleteByID = "DELETE FROM Skills WHERE id = ?";
-    private String update = "UPDATE Skills SET name = ?, cost = ? WHERE id = ?";
-    private String selectByName = "SELECT * FROM Skills WHERE name = ?";
+    private String selectAll = "SELECT * FROM skills";
+    private String insert = "INSERT INTO skills(name) VALUES (?)";
+    private String selectById = "SELECT * FROM skills WHERE id = ?";
+    private String deleteById = "DELETE FROM skills WHERE id = ?";
+    private String update = "UPDATE Skills SET name = ? WHERE id = ?";
+    private String selectByName = "SELECT * FROM skills WHERE name = ?";
 
     public List<Skill> getAll() {
         List<Skill> skillList = new ArrayList<>();
         try (Statement statement = connectedUtil.getConnection().createStatement()) {
             ResultSet resultSet = statement.executeQuery(selectAll);
             while (resultSet.next()) {
-                skillList.add(new Skill(resultSet.getInt("id"),
-                        resultSet.getString("name")));
+                skillList.add(new Skill(resultSet.getInt(columnId),
+                        resultSet.getString(columnName)));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("query SQL error");
         }
         return skillList;
     }
 
     @Override
-    public boolean create(Skill pr) {
+    public boolean create(Skill skill) {
         boolean flag = false;
-        if (pr != null) {
-
+        if (skill != null) {
             try (PreparedStatement preparedStatement = connectedUtil.getConnection().prepareStatement(insert)) {
-                preparedStatement.setString(1, pr.getName());
+                preparedStatement.setString(1, skill.getName());
                 int count = preparedStatement.executeUpdate();
                 if (count == 1) {
                     getAll().forEach(System.out::println);
@@ -63,8 +62,8 @@ public class SkillsDAOImpl implements SkillsDAO {
                 preparedStatement.setLong(1, id);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()) {
-                    System.out.println(new Skill(resultSet.getInt("id"),
-                            resultSet.getString("name")));
+                    System.out.println(new Skill(resultSet.getInt(columnId),
+                            resultSet.getString(columnName)));
                     flag = true;
                 }
             } catch (SQLException e) {
@@ -78,7 +77,7 @@ public class SkillsDAOImpl implements SkillsDAO {
     public boolean delete(long id) {
         boolean flag = false;
         if (id != 0) {
-            try (PreparedStatement preparedStatement = connectedUtil.getConnection().prepareStatement(deleteByID)) {
+            try (PreparedStatement preparedStatement = connectedUtil.getConnection().prepareStatement(deleteById)) {
                 preparedStatement.setLong(1, id);
                 int count = preparedStatement.executeUpdate();
                 if (count == 1) {
@@ -119,8 +118,8 @@ public class SkillsDAOImpl implements SkillsDAO {
                 preparedStatement.setString(1, nameSkill);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()) {
-                    skillList.add(new Skill(resultSet.getInt("id"),
-                            resultSet.getString("name")));
+                    skillList.add(new Skill(resultSet.getInt(columnId),
+                            resultSet.getString(columnName)));
                 }
             } catch (SQLException e1) {
                 System.out.println("query SQL error");
@@ -128,4 +127,16 @@ public class SkillsDAOImpl implements SkillsDAO {
         }
         return skillList;
     }
+
+    public static void main(String[] args) {
+
+        Skill skill = new Skill();
+
+        SkillsDAOImpl skillsDAO = new SkillsDAOImpl();
+
+        skillsDAO.getAll().forEach(System.out::println);
+        System.out.println();
+        skillsDAO.delete(14);
+    }
 }
+
