@@ -12,6 +12,17 @@ import java.util.List;
 public class CustomerDAOImpl implements CustomerDAO {
 
     ConnectedUtil connectedUtil = new ConnectedUtil();
+    private static final String id = "id";
+    private static final String name = "name";
+    private static final String address = "address";
+
+    private String selectAll = "SELECT * FROM projects";
+    private String queryInsert = "INSERT INTO projects(name, cost) VALUES (?,?)";
+    private String selectById = "SELECT * FROM projects WHERE id = ?";
+    private String deleteByID = "DELETE FROM projects WHERE id = ?";
+    private String update = "UPDATE projects SET name = ?, cost = ? WHERE id = ?";
+    private String selectByName = "SELECT * FROM projects WHERE name = ?";
+    private String selectByCost = "SELECT * FROM projects WHERE cost = ?";
 
     public List<Customer> getAll() {
         List<Customer> customerList = new ArrayList<>();
@@ -19,12 +30,12 @@ public class CustomerDAOImpl implements CustomerDAO {
         try (Statement statement = connectedUtil.getConnection().createStatement()) {
             ResultSet resultSet = statement.executeQuery(queryRead);
             while (resultSet.next()) {
-                customerList.add(new Customer(resultSet.getInt("id"),
-                        resultSet.getString("name"),
-                        resultSet.getString("address")));
+                customerList.add(new Customer(resultSet.getInt(id),
+                        resultSet.getString(name),
+                        resultSet.getString(address)));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("query SQL error");
         }
         return customerList;
     }
@@ -44,7 +55,7 @@ public class CustomerDAOImpl implements CustomerDAO {
                     flag = true;
                 }
             } catch (SQLException e1) {
-                e1.printStackTrace();
+                System.out.println("query SQL error");
             }
             return flag;
         } else {
@@ -62,13 +73,13 @@ public class CustomerDAOImpl implements CustomerDAO {
                 preparedStatement.setLong(1, id);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()) {
-                    System.out.println(new Customer(resultSet.getInt("id"),
-                            resultSet.getString("name"),
-                            resultSet.getString("address")));
+                    System.out.println(new Customer(resultSet.getInt(id),
+                            resultSet.getString(name),
+                            resultSet.getString(address)));
                     flag = true;
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                System.out.println("query SQL error");
             }
             return flag;
         } else {
@@ -90,7 +101,7 @@ public class CustomerDAOImpl implements CustomerDAO {
                     flag = true;
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                System.out.println("query SQL error");
             }
             return flag;
         } else {
@@ -114,7 +125,7 @@ public class CustomerDAOImpl implements CustomerDAO {
                     flag = true;
                 }
             } catch (SQLException e1) {
-                e1.printStackTrace();
+                System.out.println("query SQL error");
             }
             return flag;
         } else {
@@ -135,11 +146,11 @@ public class CustomerDAOImpl implements CustomerDAO {
                     System.out.println("Customer's name not found");
                 }
                 while (resultSet.next()) {
-                    customerList.add(new Customer(resultSet.getInt("id"),
+                    customerList.add(new Customer(resultSet.getInt(id),
                             resultSet.getString("name")));
                 }
             } catch (SQLException e1) {
-                e1.printStackTrace();
+                System.out.println("query SQL error");
             }
             return customerList;
         } else {
@@ -160,11 +171,11 @@ public class CustomerDAOImpl implements CustomerDAO {
                     System.out.println("Customer's address not found");
                 }
                 while (resultSet.next()) {
-                    customerList.add(new Customer(resultSet.getInt("id"),
-                            resultSet.getString("name")));
+                    customerList.add(new Customer(resultSet.getInt(id),
+                            resultSet.getString(name)));
                 }
             } catch (SQLException e1) {
-                e1.printStackTrace();
+                System.out.println("query SQL error");
             }
             return customerList;
         } else {
