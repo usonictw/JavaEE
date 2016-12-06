@@ -1,32 +1,19 @@
 package com.goit.ee.module2.contoller;
 
-import com.goit.ee.module2.dao.ProjectDAOImpl;
-import com.goit.ee.module2.dto.Project;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class ProjectController implements Executable {
+/**
+ * Created by user on 06.12.2016.
+ */
+public class ConsoleUtils {
 
+    private BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-    private ProjectDAOImpl projectDAO = new ProjectDAOImpl();
-
-    @Override
-    public void execute(Command command) {
-
-        switch (command) {
-            case CREATE:
-                Project project = new Project();
-                project.setName(readProjectName());
-                project.setCost(getProjectCost());
-                projectDAO.create(project);
-            case READ:
-                projectDAO.get(getProjectId());
-            case UPDATE:
-                projectDAO.update(new Project(getProjectId(), readProjectName(), getProjectCost()));
-            case DELETE:
-                projectDAO.delete(getProjectId());
-        }
+    private void printMassege(){
+        System.out.println("The Project added to DB successful");
+        System.out.println("projects's name is NULL");
     }
 
     private String readProjectName() {
@@ -78,5 +65,3 @@ public class ProjectController implements Executable {
         return projectId;
     }
 }
-
-
