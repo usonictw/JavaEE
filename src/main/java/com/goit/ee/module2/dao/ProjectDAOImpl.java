@@ -12,9 +12,9 @@ import java.util.List;
 public class ProjectDAOImpl implements ProjectsDAO {
 
     private ConnectedUtil connectedUtil = new ConnectedUtil();
-    private static final String id = "id";
-    private static final String name = "name";
-    private static final String cost = "cost";
+    public static final String id = "id";
+    public static final String name = "name";
+    public static final String cost = "cost";
 
     private String selectAll = "SELECT * FROM projects";
     private String queryInsert = "INSERT INTO projects(name, cost) VALUES (?,?)";

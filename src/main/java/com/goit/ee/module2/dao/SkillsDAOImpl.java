@@ -12,8 +12,8 @@ import java.util.List;
 public class SkillsDAOImpl implements SkillsDAO {
 
     ConnectedUtil connectedUtil = new ConnectedUtil();
-    private static final String columnId = "id";
-    private static final String columnName = "name";
+    public static final String columnId = "id";
+    public static final String columnName = "name";
 
     private String selectAll = "SELECT * FROM skills";
     private String insert = "INSERT INTO skills(name) VALUES (?)";
