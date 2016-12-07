@@ -6,10 +6,10 @@ import java.sql.SQLException;
 
 public class ConnectedUtil {
 
-    private final String url = "jdbc:postgresql://localhost:5432/module1";
-    private final String user = "usonic";
-    private final String password = "123";
-    private final String driver = "org.postgresql.Driver";
+    private static final String url = "jdbc:postgresql://localhost:5432/module1";
+    private static final String user = "usonic";
+    private static final String password = "123";
+    private static final String driver = "org.postgresql.Driver";
     private Connection connection;
 
     public ConnectedUtil() {
@@ -26,4 +26,10 @@ public class ConnectedUtil {
     public Connection getConnection() {
         return connection;
     }
+
+    public static void main(String[] args) {
+
+        ConnectedUtil connectedUtil = new ConnectedUtil();
+    }
+
 }

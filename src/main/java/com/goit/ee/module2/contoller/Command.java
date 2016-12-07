@@ -4,5 +4,6 @@ public enum Command {
     CREATE,
     READ,
     UPDATE,
-    DELETE
+    DELETE,
+    GET_ALL
 }

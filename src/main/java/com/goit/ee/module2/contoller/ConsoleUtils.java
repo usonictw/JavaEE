@@ -4,20 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-/**
- * Created by user on 06.12.2016.
- */
 public class ConsoleUtils {
 
     public static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-    public static void printMessage() {
-        String createObject;
-        String getObject;
-        String updateObject;
-        String deleteObject;
-        System.out.println("projects's name is NULL");
-    }
 
     public static String readParameter(String parameter) {
 
@@ -25,7 +14,7 @@ public class ConsoleUtils {
         try {
             parameter = br.readLine();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Input from the console error");
         }
         return parameter;
     }
@@ -36,14 +25,14 @@ public class ConsoleUtils {
         try {
             parameter = br.readLine();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Input from the console error");
         }
         try {
             if (parameter != null) {
                 paramInt = Integer.valueOf(parameter);
             }
         } catch (NumberFormatException | NullPointerException e) {
-            System.out.println("input parameter correctly");
+            System.out.println("Input parameter correctly");
         }
         return paramInt;
     }
