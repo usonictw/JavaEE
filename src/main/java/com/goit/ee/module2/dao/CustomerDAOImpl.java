@@ -50,7 +50,6 @@ public class CustomerDAOImpl implements CustomerDAO {
                 preparedStatement.setString(2, customer.getAddress());
                 int count = preparedStatement.executeUpdate();
                 if (count == 1) {
-                    getAll().forEach(System.out::println);
                     flag = true;
                 }
             } catch (SQLException e1) {
