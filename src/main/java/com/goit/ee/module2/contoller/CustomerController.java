@@ -17,7 +17,10 @@ public class CustomerController implements Executable {
                 Customer customer = new Customer();
                 customer.setName(readParameter(columnName));
                 customer.setAddress(readParameter(columnAddress));
-                customerDAO.create(customer);
+                if(customerDAO.create(customer)){
+                    System.out.println("");
+                    customerDAO.getAll().forEach(System.out::println);
+                }
                 break;
             case READ:
                 customerDAO.get(getParam(columnId));
