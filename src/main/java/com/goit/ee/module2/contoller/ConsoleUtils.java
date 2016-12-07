@@ -12,7 +12,10 @@ public class ConsoleUtils {
     public static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
     public static void printMessage() {
-        System.out.println("The Project added to DB successful");
+        String createObject;
+        String getObject;
+        String updateObject;
+        String deleteObject;
         System.out.println("projects's name is NULL");
     }
 
