@@ -1,3 +1,3 @@
 # README #
 
-GoIT JavaEE group 3.1
+GoIT JavaEE group 3.2
