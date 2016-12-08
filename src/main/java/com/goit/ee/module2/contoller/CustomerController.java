@@ -36,8 +36,14 @@ public class CustomerController implements Executable {
                 break;
             case GET_ALL:
                 customerDAO.getAll().forEach(System.out::println);
+                break;
             default:
                 System.out.println("Is absent entered command");
         }
+    }
+
+    public static void main(String[] args) {
+        CustomerController customerController = new CustomerController();
+        customerController.execute(Command.READ);
     }
 }
