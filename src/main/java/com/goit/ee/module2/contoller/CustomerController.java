@@ -41,9 +41,4 @@ public class CustomerController implements Executable {
                 System.out.println("Is absent entered command");
         }
     }
-
-    public static void main(String[] args) {
-        CustomerController customerController = new CustomerController();
-        customerController.execute(Command.READ);
-    }
 }
