@@ -11,9 +11,9 @@ public class DeveloperDAOImpl implements DevelopersDAO {
     private static Connection connection;
 
     static {
-        String url = "jdbc:postgresql://localhost:5432/goit";
-        String user = "postgres";
-        String password = "111";
+        String url = "jdbc:postgresql://localhost:5432/module1";
+        String user = "usonic";
+        String password = "123";
         try {
             connection = DriverManager.getConnection(url, user, password);
             System.out.println("Connected");

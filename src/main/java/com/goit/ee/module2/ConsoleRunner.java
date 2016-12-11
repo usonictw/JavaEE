@@ -1,35 +1,44 @@
 package com.goit.ee.module2;
 
+import com.goit.ee.module2.dto.*;
+import com.goit.ee.module2.menu.CreateMenuLevel1;
+
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by user on 09.12.2016.
  */
 public class ConsoleRunner {
 
-    public void run(){
+    public void run() {
+
 
         System.out.println("Welcome to the console application to work with the database");
 
-        try(BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
             String menuLevel_1;
             System.out.println("To get started with the application enter \"1\" to exit the application, enter \"0\"");
             menuLevel_1 = br.readLine();
-            if(menuLevel_1.equals("0")){
+            if (menuLevel_1.equals("0")) {
                 System.exit(0);
-            }else if(menuLevel_1.equals("1")){
-                System.out.println("Select the table you want to work. ");
-
+            } else if (menuLevel_1.equals("1")) {
+                CreateMenuLevel1 createMenuLevel1 = new CreateMenuLevel1();
+                createMenuLevel1.menu1();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-
-
-
-
+        catch (IOException e){
+            e.getStackTrace();
+        }
     }
+
+
+
+
+
 
     public static void main(String[] args) {
 

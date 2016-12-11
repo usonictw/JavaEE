@@ -44,12 +44,5 @@ public class CompaniesController implements Executable {
                 System.out.println("Not found command");
         }
     }
-
-    public static void main(String[] args) {
-
-        CompaniesController companiesController = new CompaniesController();
-
-        companiesController.execute(Command.DELETE);
-    }
 }
 

@@ -6,9 +6,6 @@ import com.goit.ee.module2.dto.Developer;
 import static com.goit.ee.module2.contoller.ConsoleUtils.getParam;
 import static com.goit.ee.module2.contoller.ConsoleUtils.readParameter;
 
-/**
- * Created by PC on 09.12.2016.
- */
 public class DeveloperController implements Executable {
 
     @Override
@@ -47,6 +44,5 @@ public class DeveloperController implements Executable {
             default:
                 System.out.println("Not found command");
         }
-
     }
 }
