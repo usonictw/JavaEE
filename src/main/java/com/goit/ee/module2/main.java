@@ -1,4 +1,4 @@
-package com.goit.ee.module2.dao;
+package com.goit.ee.module2;
 
 import com.goit.ee.module2.ConsoleRunner;
 import com.goit.ee.module2.dto.Developer;

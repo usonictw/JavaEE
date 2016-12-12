@@ -9,9 +9,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by user on 09.12.2016.
- */
+
 public class ConsoleRunner {
 
     public void run() {

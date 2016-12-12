@@ -27,6 +27,11 @@ public class SkillController implements Executable {
             case DELETE:
                 skillsDAO.delete(getParam(columnId));
                 break;
+            case GET_ALL:
+                skillsDAO.getAll();
+                break;
+            default:
+                System.out.println("Not found command");
         }
     }
 }
