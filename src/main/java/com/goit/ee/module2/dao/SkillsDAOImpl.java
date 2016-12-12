@@ -53,6 +53,8 @@ public class SkillsDAOImpl implements SkillsDAO {
         return flag;
     }
 
+    private Skill skill;
+
     @Override
     public boolean get(long id) {
         boolean flag = false;
@@ -61,8 +63,9 @@ public class SkillsDAOImpl implements SkillsDAO {
                 preparedStatement.setLong(1, id);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()) {
-                    System.out.println(new Skill(resultSet.getInt(columnId),
-                            resultSet.getString(columnName)));
+                    skill = new Skill(resultSet.getInt(columnId),
+                            resultSet.getString(columnName));
+                    System.out.println(skill);
                     flag = true;
                 }
             } catch (SQLException e) {
@@ -76,10 +79,12 @@ public class SkillsDAOImpl implements SkillsDAO {
     public boolean delete(long id) {
         boolean flag = false;
         if (id != 0) {
+            get(id);
             try (PreparedStatement preparedStatement = connectedUtil.getConnection().prepareStatement(deleteById)) {
                 preparedStatement.setLong(1, id);
                 int count = preparedStatement.executeUpdate();
                 if (count == 1) {
+                    System.out.print(" is deleted\n\n");
                     flag = true;
                 }
             } catch (SQLException e) {
@@ -90,15 +95,15 @@ public class SkillsDAOImpl implements SkillsDAO {
     }
 
     @Override
-    public boolean update(Skill pr) {
+    public boolean update(Skill sk) {
         boolean flag = false;
-        if (pr != null) {
+        if (sk != null) {
             try (PreparedStatement preparedStatement = connectedUtil.getConnection().prepareStatement(update)) {
-                preparedStatement.setString(1, pr.getName());
-                preparedStatement.setLong(2, pr.getId());
+                preparedStatement.setString(1, sk.getName());
+                preparedStatement.setLong(2, sk.getId());
                 int count = preparedStatement.executeUpdate();
                 if (count == 1) {
-                    getAll().forEach(System.out::println);
+                    System.out.println("Skill with id " + sk.getId() + " updated on" + sk.getName());
                     flag = true;
                 }
             } catch (SQLException e1) {

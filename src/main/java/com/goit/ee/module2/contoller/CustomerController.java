@@ -19,9 +19,9 @@ public class CustomerController implements Executable {
                 customer.setName(readParameter(columnName));
                 customer.setAddress(readParameter(columnAddress));
                 if (customerDAO.create(customer)) {
-                    System.out.println(readParameter(columnName) + " is created");
+                    System.out.println(customer.getName() + " is created");
                 } else {
-                    System.out.println("Error." + readParameter(columnName) + "is not created");
+                    System.out.println("Error." + customer.getName() + "is not created");
                 }
                 break;
             case READ:
@@ -34,9 +34,10 @@ public class CustomerController implements Executable {
                 customerDAO.getAll().forEach(System.out::println);
                 break;
             case DELETE:
-                if(customerDAO.delete(getParam(columnId))){
-                    System.out.println(customerDAO.get(getParam(columnId)) + " is deleted");
-                }else {
+                int byId = getParam(columnId);
+                if (customerDAO.delete(byId)) {
+                    customerDAO.getAll().forEach(System.out::println);
+                } else {
                     System.out.println("Object is not found");
                 }
                 break;

@@ -59,6 +59,8 @@ public class CustomerDAOImpl implements CustomerDAO {
         return flag;
     }
 
+    Customer customer;
+
     @Override
     public boolean get(long id) {
         boolean flag = false;
@@ -67,9 +69,10 @@ public class CustomerDAOImpl implements CustomerDAO {
                 preparedStatement.setLong(1, id);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()) {
-                    System.out.println(new Customer(resultSet.getInt(columnId),
+                    customer = new Customer(resultSet.getInt(columnId),
                             resultSet.getString(columnName),
-                            resultSet.getString(columnAddress)));
+                            resultSet.getString(columnAddress));
+                    System.out.println(customer);
                     flag = true;
                 }
             } catch (SQLException e) {
@@ -83,10 +86,12 @@ public class CustomerDAOImpl implements CustomerDAO {
     public boolean delete(long id) {
         boolean flag = false;
         if (id != 0) {
+            get(id);
             try (PreparedStatement preparedStatement = connectedUtil.getConnection().prepareStatement(deleteById)) {
                 preparedStatement.setLong(1, id);
                 int count = preparedStatement.executeUpdate();
                 if (count == 1) {
+                    System.out.println(" is deleted\n\n");
                     flag = true;
                 }
             } catch (SQLException e) {
@@ -97,15 +102,16 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public boolean update(Customer pr) {
+    public boolean update(Customer cust) {
         boolean flag = false;
-        if (pr != null) {
+        if (cust != null) {
             try (PreparedStatement preparedStatement = connectedUtil.getConnection().prepareStatement(update)) {
-                preparedStatement.setString(1, pr.getName());
-                preparedStatement.setLong(2, pr.getId());
+                preparedStatement.setString(1, cust.getName());
+                preparedStatement.setString(2, cust.getAddress());
+                preparedStatement.setLong(3, cust.getId());
                 int count = preparedStatement.executeUpdate();
                 if (count == 1) {
-                    getAll().forEach(System.out::println);
+                    System.out.println("Customer with id " + cust.getId() + " update on " + cust.getName());
                     flag = true;
                 }
             } catch (SQLException e1) {

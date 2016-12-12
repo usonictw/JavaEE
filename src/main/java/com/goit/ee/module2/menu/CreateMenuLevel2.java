@@ -23,7 +23,7 @@ public class CreateMenuLevel2 {
                         SkillController skillController = new SkillController();
                         skillController.execute(Command.CREATE);
                         break;
-                    case "Projects":
+                    case "Project":
                         ProjectController projectController = new ProjectController();
                         projectController.execute(Command.CREATE);
                         break;
@@ -52,7 +52,7 @@ public class CreateMenuLevel2 {
                         SkillController skillController = new SkillController();
                         skillController.execute(Command.READ);
                         break;
-                    case "Projects":
+                    case "Project":
                         ProjectController projectController = new ProjectController();
                         projectController.execute(Command.READ);
                         break;
@@ -81,7 +81,7 @@ public class CreateMenuLevel2 {
                         SkillController skillController = new SkillController();
                         skillController.execute(Command.UPDATE);
                         break;
-                    case "Projects":
+                    case "Project":
                         ProjectController projectController = new ProjectController();
                         projectController.execute(Command.UPDATE);
                         break;
@@ -110,7 +110,7 @@ public class CreateMenuLevel2 {
                         SkillController skillController = new SkillController();
                         skillController.execute(Command.DELETE);
                         break;
-                    case "Projects":
+                    case "Project":
                         ProjectController projectController = new ProjectController();
                         projectController.execute(Command.DELETE);
                         break;
@@ -140,7 +140,7 @@ public class CreateMenuLevel2 {
                         SkillController skillController = new SkillController();
                         skillController.execute(Command.GET_ALL);
                         break;
-                    case "Projects":
+                    case "Project":
                         ProjectController projectController = new ProjectController();
                         projectController.execute(Command.GET_ALL);
                         break;

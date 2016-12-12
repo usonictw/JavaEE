@@ -1,6 +1,7 @@
 package com.goit.ee.module2.dao;
 
 import com.goit.ee.module2.dto.Project;
+import com.goit.ee.module2.dto.Skill;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -48,7 +49,7 @@ public class ProjectDAOImpl implements ProjectsDAO {
                 preparedStatement.setInt(2, pr.getCost());
                 int count = preparedStatement.executeUpdate();
                 if (count == 1) {
-                    getAll().forEach(System.out::println);
+                    System.out.println("Project with id " + pr.getId() + " updated on " + pr.getName());
                     flag = true;
                 }
             } catch (SQLException e1) {
@@ -58,6 +59,8 @@ public class ProjectDAOImpl implements ProjectsDAO {
         return flag;
     }
 
+    Project project;
+
     @Override
     public boolean get(long id) {
         boolean flag = false;
@@ -66,9 +69,10 @@ public class ProjectDAOImpl implements ProjectsDAO {
                 preparedStatement.setLong(1, id);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()) {
-                    System.out.println(new Project(resultSet.getInt("id"),
+                    project = new Project(resultSet.getInt("id"),
                             resultSet.getString(name),
-                            resultSet.getInt(cost)));
+                            resultSet.getInt(cost));
+                    System.out.println(project);
                     flag = true;
                 }
             } catch (SQLException e) {
@@ -82,10 +86,12 @@ public class ProjectDAOImpl implements ProjectsDAO {
     public boolean delete(long id) {
         boolean flag = false;
         if (id != 0) {
+            get(id);
             try (PreparedStatement preparedStatement = connectedUtil.getConnection().prepareStatement(deleteById)) {
                 preparedStatement.setLong(1, id);
                 int count = preparedStatement.executeUpdate();
                 if (count == 1) {
+                    System.out.println(" is deleted\n\n");
                     flag = true;
                 }
             } catch (SQLException e) {
@@ -105,7 +111,7 @@ public class ProjectDAOImpl implements ProjectsDAO {
                 preparedStatement.setLong(3, pr.getId());
                 int count = preparedStatement.executeUpdate();
                 if (count == 1) {
-                    getAll().forEach(System.out::println);
+                    System.out.println("Project with id " + pr.getId() + " updated on " + pr.getName());
                     flag = true;
                 }
             } catch (SQLException e1) {
