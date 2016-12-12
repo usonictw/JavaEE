@@ -9,7 +9,7 @@ import java.sql.*;
  * Created by Alex on 04.12.2016.
  */
 public class CompaniesDAOImpl implements CompaniesDAO {
-    private static Connection connection;
+    /*private static Connection connection;
 
     static {
         String url = "jdbc:postgresql://localhost:5432/goit";
@@ -21,7 +21,9 @@ public class CompaniesDAOImpl implements CompaniesDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
+    }*/
+
+    ConnectedUtil connectedUtil = new ConnectedUtil();
 
     private String printingResultSet(ResultSet rs) throws SQLException {
         String output;
@@ -44,7 +46,7 @@ public class CompaniesDAOImpl implements CompaniesDAO {
     public boolean create(Company company) {
         PreparedStatement ps = null;
         try {
-            ps = connection.prepareStatement("INSERT INTO companies (name, address) VALUES (?, ?)");
+            ps = connectedUtil.getConnection().prepareStatement("INSERT INTO companies (name, address) VALUES (?, ?)");
             ps.setString(1, company.getName());
             ps.setString(2, company.getAddress());
             if (ps.executeUpdate() == 1) {
@@ -66,7 +68,7 @@ public class CompaniesDAOImpl implements CompaniesDAO {
 
     public boolean get(long id) {
         try {
-            PreparedStatement ps = connection.prepareStatement("SELECT * from companies WHERE id = ?");
+            PreparedStatement ps = connectedUtil.getConnection().prepareStatement("SELECT * from companies WHERE id = ?");
             ps.setLong(1, id);
             ResultSet resultSet = ps.executeQuery();
             if (resultSet != null) {
@@ -83,7 +85,7 @@ public class CompaniesDAOImpl implements CompaniesDAO {
 
     public boolean update(Company company) {
         try {
-            PreparedStatement ps = connection.prepareStatement("UPDATE companies " +
+            PreparedStatement ps = connectedUtil.getConnection().prepareStatement("UPDATE companies " +
                     "set name=?, address=?" +
                     " WHERE id=?");
             ps.setString(1, company.getName());
@@ -103,7 +105,7 @@ public class CompaniesDAOImpl implements CompaniesDAO {
     public boolean delete(long id) {
         PreparedStatement ps;
         try {
-            ps = connection.prepareStatement("DELETE FROM companies WHERE id=?");
+            ps = connectedUtil.getConnection().prepareStatement("DELETE FROM companies WHERE id=?");
             ps.setLong(1, id);
             int delResult;
             try {
@@ -125,7 +127,7 @@ public class CompaniesDAOImpl implements CompaniesDAO {
 
     public boolean findByName(String name) {
         try {
-            PreparedStatement ps = connection.prepareStatement("SELECT * from companies WHERE name = ?");
+            PreparedStatement ps = connectedUtil.getConnection().prepareStatement("SELECT * from companies WHERE name = ?");
             ps.setString(1, name);
             ResultSet resultSet = ps.executeQuery();
             if (resultSet != null) {
@@ -142,7 +144,7 @@ public class CompaniesDAOImpl implements CompaniesDAO {
     public void showAllData() {
         Statement statement=null;
         try {
-           statement = connection.createStatement();
+           statement = connectedUtil.getConnection().createStatement();
             ResultSet rs = statement.executeQuery("SELECT * from companies ORDER BY id");
             System.out.println(printingResultSet(rs));
         } catch (SQLException e) {

@@ -2,6 +2,7 @@ package com.goit.ee.module2.contoller;
 
 import com.goit.ee.module2.dao.CustomerDAOImpl;
 import com.goit.ee.module2.dto.Customer;
+
 import static com.goit.ee.module2.contoller.ConsoleUtils.*;
 import static com.goit.ee.module2.dao.CustomerDAOImpl.*;
 
@@ -18,9 +19,9 @@ public class CustomerController implements Executable {
                 customer.setName(readParameter(columnName));
                 customer.setAddress(readParameter(columnAddress));
                 if (customerDAO.create(customer)) {
-                    System.out.println(readParameter(columnName) + " is created");
+                    System.out.println(customer.getName() + " is created");
                 } else {
-                    System.out.println("Error." + readParameter(columnName) + "is not created");
+                    System.out.println("Error." + customer.getName() + "is not created");
                 }
                 break;
             case READ:
@@ -30,14 +31,21 @@ public class CustomerController implements Executable {
                 customerDAO.update(new Customer(getParam(columnId),
                         readParameter(columnName),
                         readParameter(columnAddress)));
+                customerDAO.getAll().forEach(System.out::println);
                 break;
             case DELETE:
-                customerDAO.delete(getParam(columnId));
+                int byId = getParam(columnId);
+                if (customerDAO.delete(byId)) {
+                    customerDAO.getAll().forEach(System.out::println);
+                } else {
+                    System.out.println("Object is not found");
+                }
                 break;
             case GET_ALL:
                 customerDAO.getAll().forEach(System.out::println);
+                break;
             default:
-                System.out.println("Is absent entered command");
+                System.out.println("Not found command");
         }
     }
 }
