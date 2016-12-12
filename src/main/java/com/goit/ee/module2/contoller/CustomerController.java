@@ -2,6 +2,7 @@ package com.goit.ee.module2.contoller;
 
 import com.goit.ee.module2.dao.CustomerDAOImpl;
 import com.goit.ee.module2.dto.Customer;
+
 import static com.goit.ee.module2.contoller.ConsoleUtils.*;
 import static com.goit.ee.module2.dao.CustomerDAOImpl.*;
 
@@ -30,15 +31,20 @@ public class CustomerController implements Executable {
                 customerDAO.update(new Customer(getParam(columnId),
                         readParameter(columnName),
                         readParameter(columnAddress)));
+                customerDAO.getAll().forEach(System.out::println);
                 break;
             case DELETE:
-                customerDAO.delete(getParam(columnId));
+                if(customerDAO.delete(getParam(columnId))){
+                    System.out.println(customerDAO.get(getParam(columnId)) + " is deleted");
+                }else {
+                    System.out.println("Object is not found");
+                }
                 break;
             case GET_ALL:
                 customerDAO.getAll().forEach(System.out::println);
                 break;
             default:
-                System.out.println("Is absent entered command");
+                System.out.println("Not found command");
         }
     }
 }

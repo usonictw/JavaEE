@@ -86,7 +86,6 @@ public class ProjectDAOImpl implements ProjectsDAO {
                 preparedStatement.setLong(1, id);
                 int count = preparedStatement.executeUpdate();
                 if (count == 1) {
-                    getAll().forEach(System.out::println);
                     flag = true;
                 }
             } catch (SQLException e) {

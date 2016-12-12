@@ -26,16 +26,13 @@ public class ConsoleRunner {
             } else if (menuLevel_1.equals("1")) {
                 CreateMenuLevel1 createMenuLevel1 = new CreateMenuLevel1();
                 createMenuLevel1.menu1();
+            } else {
+                run();
             }
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             e.getStackTrace();
         }
     }
-
-
-
-
 
 
     public static void main(String[] args) {

@@ -44,7 +44,6 @@ public class SkillsDAOImpl implements SkillsDAO {
                 preparedStatement.setString(1, skill.getName());
                 int count = preparedStatement.executeUpdate();
                 if (count == 1) {
-                    getAll().forEach(System.out::println);
                     flag = true;
                 }
             } catch (SQLException e1) {
@@ -81,7 +80,6 @@ public class SkillsDAOImpl implements SkillsDAO {
                 preparedStatement.setLong(1, id);
                 int count = preparedStatement.executeUpdate();
                 if (count == 1) {
-                    getAll().forEach(System.out::println);
                     flag = true;
                 }
             } catch (SQLException e) {
