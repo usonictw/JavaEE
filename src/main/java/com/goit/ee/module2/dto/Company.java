@@ -57,4 +57,13 @@ public class Company {
         result = 31 * result + (address != null ? address.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Company{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                '}';
+    }
 }

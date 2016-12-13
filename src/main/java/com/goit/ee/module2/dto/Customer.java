@@ -5,7 +5,7 @@ public class Customer {
     private String name;
     private String address;
 
-    public Customer(int id, String name) {
+    public Customer() {
     }
 
     public Customer(long id, String name, String address) {
@@ -56,5 +56,14 @@ public class Customer {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (address != null ? address.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                '}';
     }
 }
