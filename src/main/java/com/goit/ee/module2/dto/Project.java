@@ -1,8 +1,20 @@
 package com.goit.ee.module2.dto;
+import javax.persistence.*;
 
+
+@Entity
+@Table(name = "developers")
 public class Project {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private long id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "cost")
     private int cost;
 
     public Project() {
@@ -13,6 +25,7 @@ public class Project {
         this.name = name;
         this.cost = cost;
     }
+
 
     public long getId() {
         return id;

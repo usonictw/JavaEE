@@ -1,8 +1,33 @@
 package com.goit.ee.module2.dto;
 
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
+@Table(name = "skills")
 public class Skill {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private long id;
+
+    @Column(name = "name")
     private String name;
+
+
+   /* @ManyToOne(targetEntity = Developer.class)
+    private Developer developer;
+
+    public Developer getDeveloper() {
+        return developer;
+    }
+
+    public void setDeveloper(Developer developer) {
+        this.developer = developer;
+    }*/
+
 
     public Skill() {
     }

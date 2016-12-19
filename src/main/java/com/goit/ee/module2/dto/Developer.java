@@ -1,11 +1,33 @@
 package com.goit.ee.module2.dto;
 
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
+@Table(name = "developers")
 public class Developer {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private long id;
+
+    @Column(name = "age")
     private int age;
+
+    @Column(name = "first_name")
     private String firstName;
+
+    @Column(name = "last_name")
     private String lastName;
+
+    @Column(name = "salary")
     private int salary;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "dev_skills", joinColumns = @JoinColumn(name = "id_dev"), inverseJoinColumns = @JoinColumn(name = "id_skills"))
+    private Set<Skill> skills = new HashSet<>();
 
     public Developer() {
     }
@@ -16,6 +38,19 @@ public class Developer {
         this.age = age;
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public Set<Skill> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(Set<Skill> skills) {
+        this.skills = skills;
+    }
+
+    public void addSkill(Skill skill){
+
+        this.skills.add(skill);
     }
 
     public long getId() {
