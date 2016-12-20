@@ -1,6 +1,5 @@
 package com.goit.ee.module2.contoller;
 
-import com.goit.ee.module2.dao.CustomerDAOImpl;
 import com.goit.ee.module2.dto.Customer;
 
 import static com.goit.ee.module2.contoller.ConsoleUtils.*;

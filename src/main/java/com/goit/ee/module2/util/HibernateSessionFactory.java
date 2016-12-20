@@ -18,7 +18,6 @@ public class HibernateSessionFactory {
             e.printStackTrace();
         }
     }
-
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }

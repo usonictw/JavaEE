@@ -17,7 +17,8 @@ public class Skill {
     private String name;
 
 
-   /* @ManyToOne(targetEntity = Developer.class)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinTable(name = "dev_skills", joinColumns = @JoinColumn(name = "id_skills"), inverseJoinColumns = @JoinColumn(name = "id_dev"))
     private Developer developer;
 
     public Developer getDeveloper() {
@@ -26,8 +27,7 @@ public class Skill {
 
     public void setDeveloper(Developer developer) {
         this.developer = developer;
-    }*/
-
+    }
 
     public Skill() {
     }

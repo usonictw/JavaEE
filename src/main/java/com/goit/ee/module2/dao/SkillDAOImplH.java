@@ -2,7 +2,9 @@ package com.goit.ee.module2.dao;
 
 import com.goit.ee.module2.dto.Skill;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -10,26 +12,34 @@ import java.util.List;
  */
 public class SkillDAOImplH implements SkillsDAO {
 
-private Session session;
+    private Session session;
 
     @Override
-    public boolean create(Skill skill) {
-        return false;
+    public void create(Skill skill) {
+
     }
 
     @Override
-    public boolean get(long id) {
-        return false;
+    public Skill get(long id) {
+        return null;
     }
 
     @Override
-    public boolean update(Skill skill) {
-        return false;
+    public void update(Skill skill) {
+
     }
 
     @Override
-    public boolean delete(long id) {
-        return false;
+    public void delete(long id) {
+
+        Transaction tx = session.beginTransaction();
+        Object persistentInstance = session.load(Skill.class, id);
+        if (persistentInstance != null) {
+            session.delete(persistentInstance);
+            tx.commit();
+            session.close();
+
+        }
     }
 
     @Override
@@ -37,9 +47,9 @@ private Session session;
         return null;
     }
 
-    public List getAll(){
+    public List getAll() {
 
-        return session.createSQLQuery("SELECT * FROM skills").list();
+        return session.createQuery("SELECT s FROM Skill as s").list();
     }
 
     public Session getSession() {

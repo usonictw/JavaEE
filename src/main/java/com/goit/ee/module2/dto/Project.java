@@ -1,13 +1,15 @@
 package com.goit.ee.module2.dto;
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
-@Table(name = "developers")
+@Table(name = "projects")
 public class Project {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
 
@@ -16,6 +18,18 @@ public class Project {
 
     @Column(name = "cost")
     private int cost;
+
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = Developer.class)
+    @JoinTable(name = "proj_dev", joinColumns = @JoinColumn(name = "id_proj"), inverseJoinColumns = @JoinColumn(name = "id_dev"))
+    private Set<Developer> developers = new HashSet<>();
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinTable(name = "cust_proj", joinColumns = @JoinColumn(name = "id_proj"), inverseJoinColumns = @JoinColumn(name = "id_cust"))
+    private Customer customer;
+
+    @ManyToOne
+    @JoinTable(name = "comp_proj", joinColumns = @JoinColumn(name = "id_proj"), inverseJoinColumns = @JoinColumn(name = "id_comp"))
+    private Company company;
 
     public Project() {
     }
@@ -26,6 +40,26 @@ public class Project {
         this.cost = cost;
     }
 
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public void addDevelopers(Developer developer){
+
+        developers.add(developer);
+    }
+
+    public Set<Developer> getDevelopers() {
+        return developers;
+    }
+
+    public void setDevelopers(Set<Developer> developers) {
+        this.developers = developers;
+    }
 
     public long getId() {
         return id;

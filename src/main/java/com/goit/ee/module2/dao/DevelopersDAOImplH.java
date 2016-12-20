@@ -6,31 +6,57 @@ import org.hibernate.Session;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by user on 18.12.2016.
- */
 public class DevelopersDAOImplH implements DevelopersDAO {
 
     private Session session;
 
     @Override
-    public boolean create(Developer developer) {
-        return false;
+    public void create(Developer developer) {
+
+        try {
+            session.save(developer);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
     }
 
     @Override
-    public boolean get(long id) {
-        return false;
+    public Developer get(long id) {
+        try {
+            Object persistentInstance = session.load(Developer.class, id);
+            return (Developer) persistentInstance;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return null;
     }
 
     @Override
-    public boolean update(Developer developer) {
-        return false;
+    public void update(Developer developer) {
+        try {
+            session.update(developer);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
     }
 
+
     @Override
-    public boolean delete(long id) {
-        return false;
+    public void delete(long id) {
+        try {
+            session.delete(get(id));
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
     }
 
     @Override
@@ -43,9 +69,9 @@ public class DevelopersDAOImplH implements DevelopersDAO {
         return false;
     }
 
-    public List getAll(){
+    public List getAll() {
 
-        return session.createSQLQuery("SELECT  * FROM developers").list();
+        return session.createQuery("SELECT  d FROM Developer d").list();
     }
 
     public void setSession(Session session) {

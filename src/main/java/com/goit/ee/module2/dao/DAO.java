@@ -1,9 +1,9 @@
 package com.goit.ee.module2.dao;
 
 public interface DAO<T> {
-    boolean create(T t);
-    boolean get(long id);
-    boolean update(T t);
-    boolean delete(long id);
+    void create(T t);
+    T get(long id);
+    void update(T t);
+    void delete(long id);
 
 }

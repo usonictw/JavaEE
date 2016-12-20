@@ -29,6 +29,9 @@ public class Developer {
     @JoinTable(name = "dev_skills", joinColumns = @JoinColumn(name = "id_dev"), inverseJoinColumns = @JoinColumn(name = "id_skills"))
     private Set<Skill> skills = new HashSet<>();
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Project project;
+
     public Developer() {
     }
 
@@ -48,7 +51,7 @@ public class Developer {
         this.skills = skills;
     }
 
-    public void addSkill(Skill skill){
+    public void addSkill(Skill skill) {
 
         this.skills.add(skill);
     }

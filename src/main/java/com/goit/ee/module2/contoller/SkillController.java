@@ -1,6 +1,5 @@
 package com.goit.ee.module2.contoller;
 
-import com.goit.ee.module2.dao.SkillsDAOImpl;
 import com.goit.ee.module2.dto.Skill;
 
 import static com.goit.ee.module2.contoller.ConsoleUtils.*;

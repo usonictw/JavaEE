@@ -1,6 +1,5 @@
 package com.goit.ee.module2.contoller;
 
-import com.goit.ee.module2.dao.DeveloperDAOImpl;
 import com.goit.ee.module2.dto.Developer;
 
 import static com.goit.ee.module2.contoller.ConsoleUtils.getParam;

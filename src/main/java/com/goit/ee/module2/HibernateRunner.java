@@ -1,6 +1,7 @@
 package com.goit.ee.module2;
 
 import com.goit.ee.module2.dao.DevelopersDAOImplH;
+import com.goit.ee.module2.dao.SkillDAOImplH;
 import com.goit.ee.module2.dto.Developer;
 import com.goit.ee.module2.dto.Skill;
 import com.goit.ee.module2.util.HibernateSessionFactory;
@@ -20,11 +21,16 @@ public class HibernateRunner {
        Session session = HibernateSessionFactory.getSessionFactory().openSession();
 
        DevelopersDAOImplH developersDAOImplH = new DevelopersDAOImplH();
+       SkillDAOImplH skillDAOImplH = new SkillDAOImplH();
        developersDAOImplH.setSession(session);
+       skillDAOImplH.setSession(session);
+
+       skillDAOImplH.getAll().forEach(System.out::println);
 
        Transaction tx = session.beginTransaction();
+        skillDAOImplH.delete(18);
 
-       Developer developer = new Developer();
+      /* Developer developer = new Developer();
        developer.setAge(23);
        developer.setFirstName("Ivan");
        developer.setLastName("Ivanov");
@@ -33,7 +39,9 @@ public class HibernateRunner {
        Skill skill = new Skill();
        skill.setName("C");
        developer.addSkill(skill);
+
        session.save(developer);
+       */
        tx.commit();
        session.close();
 

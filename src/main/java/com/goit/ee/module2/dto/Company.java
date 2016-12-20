@@ -2,6 +2,8 @@ package com.goit.ee.module2.dto;
 
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "companies")
@@ -18,6 +20,10 @@ public class Company {
     @Column(name = "address")
     private String address;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "comp_proj", joinColumns = @JoinColumn(name = "id_comp"), inverseJoinColumns = @JoinColumn(name = "id_proj"))
+    private Set<Project> projects = new HashSet<>();
+
     public Company() {
     }
 
@@ -25,6 +31,19 @@ public class Company {
         this.id = id;
         this.name = name;
         this.address = address;
+    }
+
+    public Set<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(Set<Project> projects) {
+        this.projects = projects;
+    }
+
+    public void addProject(Project project){
+
+        this.projects.add(project);
     }
 
     public long getId() {
