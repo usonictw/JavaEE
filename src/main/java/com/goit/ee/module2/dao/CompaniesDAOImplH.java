@@ -2,10 +2,10 @@ package com.goit.ee.module2.dao;
 
 import com.goit.ee.module2.dto.Company;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
-/**
- * Created by user on 20.12.2016.
- */
+import java.util.List;
+
 public class CompaniesDAOImplH implements CompaniesDAO {
 
     private Session session;
@@ -33,5 +33,14 @@ public class CompaniesDAOImplH implements CompaniesDAO {
     @Override
     public boolean findByName(String name) {
         return false;
+    }
+
+    public List getAll() {
+        Transaction tx = session.beginTransaction();
+        return session.createQuery("select c from Company c").list();
+    }
+
+    public void setSession(Session session) {
+        this.session = session;
     }
 }

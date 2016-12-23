@@ -5,9 +5,6 @@ import org.hibernate.Session;
 
 import java.util.List;
 
-/**
- * Created by user on 20.12.2016.
- */
 public class CustomerDAOImplH implements CustomerDAO {
 
     private Session session;
@@ -40,5 +37,10 @@ public class CustomerDAOImplH implements CustomerDAO {
     @Override
     public List<Customer> findByAddress(String address) {
         return null;
+    }
+
+    public List<Customer> getAll(){
+
+        return session.createQuery("select cust from Customer cust").list();
     }
 }

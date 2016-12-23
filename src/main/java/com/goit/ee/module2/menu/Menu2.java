@@ -6,9 +6,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by user on 12.12.2016.
- */
 public class Menu2 {
 
     public List<MenuEntry> menuEntryList = new ArrayList<>();

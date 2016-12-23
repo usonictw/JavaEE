@@ -2,9 +2,6 @@ package com.goit.ee.module2.menu;
 
 import com.goit.ee.module2.contoller.*;
 
-/**
- * Created by PC on 10.12.2016.
- */
 public class CreateMenuLevel2 {
 
     Menu2 menu2 = new Menu2();

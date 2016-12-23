@@ -1,14 +1,13 @@
 package com.goit.ee.module2.dao;
 
 import com.goit.ee.module2.dto.Developer;
+import com.goit.ee.module2.util.HibernateSessionFactory;
 import org.hibernate.Session;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class DevelopersDAOImplH implements DevelopersDAO {
 
-    private Session session;
+    private Session session = HibernateSessionFactory.getSessionFactory().getCurrentSession();
 
     @Override
     public void create(Developer developer) {

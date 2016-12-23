@@ -16,7 +16,8 @@ import org.hibernate.cfg.Configuration;
 @SuppressWarnings({"ALL", "deprecation"})
 public class HibernateRunner {
 
-   public static void main(String[] args) {
+
+    public static void main(String[] args) {
 
        Session session = HibernateSessionFactory.getSessionFactory().openSession();
 

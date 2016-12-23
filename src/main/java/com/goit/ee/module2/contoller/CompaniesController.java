@@ -1,5 +1,6 @@
 package com.goit.ee.module2.contoller;
 
+import com.goit.ee.module2.dao.CompaniesDAOImplH;
 import com.goit.ee.module2.dto.Company;
 
 import static com.goit.ee.module2.contoller.ConsoleUtils.getParam;
@@ -11,18 +12,14 @@ public class CompaniesController implements Executable {
     @Override
     public void execute(Command command) {
 
-        CompaniesDAOImpl companiesDAO = new CompaniesDAOImpl();
+        CompaniesDAOImplH companiesDAO = new CompaniesDAOImplH();
 
         switch (command) {
             case CREATE:
                 Company company = new Company();
                 company.setName(readParameter("name"));
                 company.setAddress(readParameter("address"));
-                if (companiesDAO.create(company)) {
-                    System.out.println(readParameter("name") + " is created");
-                } else {
-                    System.out.println("Error." + readParameter("name") + "is not created");
-                }
+                companiesDAO.create(company);
                 break;
             case READ:
                 companiesDAO.get(getParam("id"));
@@ -36,7 +33,7 @@ public class CompaniesController implements Executable {
                 companiesDAO.delete(getParam("id"));
                 break;
             case GET_ALL:
-                companiesDAO.showAllData();
+                companiesDAO.getAll();
                 break;
             default:
                 System.out.println("Not found command");

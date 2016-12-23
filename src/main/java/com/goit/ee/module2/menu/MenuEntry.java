@@ -1,8 +1,5 @@
 package com.goit.ee.module2.menu;
 
-/**
- * Created by PC on 10.12.2016.
- */
 public abstract class MenuEntry {
 
     private String title;

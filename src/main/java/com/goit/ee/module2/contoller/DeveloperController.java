@@ -1,7 +1,9 @@
 package com.goit.ee.module2.contoller;
 
+import com.goit.ee.module2.dao.DevelopersDAOImplH;
 import com.goit.ee.module2.dto.Developer;
 
+import static com.goit.ee.module2.contoller.Command.*;
 import static com.goit.ee.module2.contoller.ConsoleUtils.getParam;
 import static com.goit.ee.module2.contoller.ConsoleUtils.readParameter;
 
@@ -9,7 +11,7 @@ public class DeveloperController implements Executable {
 
     @Override
     public void execute(Command command) {
-        DeveloperDAOImpl companiesDAO = new DeveloperDAOImpl();
+        DevelopersDAOImplH developersDAOImplH = new DevelopersDAOImplH();
 
         switch (command) {
             case CREATE:
@@ -18,30 +20,30 @@ public class DeveloperController implements Executable {
                 developer.setLastName(readParameter("last_name"));
                 developer.setAge(getParam("age"));
                 developer.setSalary(getParam("salary"));
-                if (companiesDAO.create(developer)) {
-                    System.out.println(readParameter("name") + " is created");
-                } else {
-                    System.out.println("Error." + readParameter("name") + "is not created");
-                }
+                developersDAOImplH.create(developer);
+
                 break;
-            case READ:
-                companiesDAO.get(getParam("id"));
-                break;
-            case UPDATE:
-                companiesDAO.update(new Developer(getParam("id"),
-                        getParam("age"),
-                        readParameter("first_name"),
-                        readParameter("last_name"),
-                        getParam("salary")));
-                break;
-            case DELETE:
-                companiesDAO.delete(getParam("id"));
-                break;
-            case GET_ALL:
-                companiesDAO.showAllData();
-                break;
-            default:
-                System.out.println("Not found command");
+                case READ:
+                    developersDAOImplH.get(getParam("id"));
+                    break;
+                case UPDATE:
+                    developersDAOImplH.update(new Developer(getParam("id"),
+                            getParam("age"),
+                            readParameter("first_name"),
+                            readParameter("last_name"),
+                            getParam("salary")));
+                    break;
+                case DELETE:
+                    developersDAOImplH.delete(getParam("id"));
+                    break;
+                case GET_ALL:
+                    developersDAOImplH.getAll();
+                    break;
+                default:
+                    System.out.println("Not found command");
+
+
+
         }
     }
 }

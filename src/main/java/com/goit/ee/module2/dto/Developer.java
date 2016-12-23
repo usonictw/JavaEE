@@ -30,6 +30,7 @@ public class Developer {
     private Set<Skill> skills = new HashSet<>();
 
     @ManyToOne(cascade = CascadeType.ALL)
+    @JoinTable(name = "proj_dev")
     private Project project;
 
     public Developer() {

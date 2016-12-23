@@ -1,44 +1,37 @@
 package com.goit.ee.module2.contoller;
 
+import com.goit.ee.module2.dao.CustomerDAOImplH;
 import com.goit.ee.module2.dto.Customer;
-
 import static com.goit.ee.module2.contoller.ConsoleUtils.*;
-import static com.goit.ee.module2.dao.CustomerDAOImpl.*;
 
 public class CustomerController implements Executable {
 
     @Override
     public void execute(Command command) {
 
-        CustomerDAOImpl customerDAO = new CustomerDAOImpl();
+        CustomerDAOImplH customerDAO = new CustomerDAOImplH();
 
         switch (command) {
             case CREATE:
                 Customer customer = new Customer();
-                customer.setName(readParameter(columnName));
-                customer.setAddress(readParameter(columnAddress));
-                if (customerDAO.create(customer)) {
-                    System.out.println(customer.getName() + " is created");
-                } else {
-                    System.out.println("Error." + customer.getName() + "is not created");
-                }
+                customer.setName(readParameter("name"));
+                customer.setAddress(readParameter("address"));
+                customerDAO.create(customer);
+
                 break;
             case READ:
-                customerDAO.get(getParam(columnId));
+                customerDAO.get(getParam("id"));
                 break;
             case UPDATE:
-                customerDAO.update(new Customer(getParam(columnId),
-                        readParameter(columnName),
-                        readParameter(columnAddress)));
+                customerDAO.update(new Customer(getParam("id"),
+                        readParameter("name"),
+                        readParameter("address")));
                 customerDAO.getAll().forEach(System.out::println);
                 break;
             case DELETE:
-                int byId = getParam(columnId);
-                if (customerDAO.delete(byId)) {
-                    customerDAO.getAll().forEach(System.out::println);
-                } else {
-                    System.out.println("Object is not found");
-                }
+                int byId = getParam("id");
+                customerDAO.delete(byId);
+                customerDAO.getAll().forEach(System.out::println);
                 break;
             case GET_ALL:
                 customerDAO.getAll().forEach(System.out::println);

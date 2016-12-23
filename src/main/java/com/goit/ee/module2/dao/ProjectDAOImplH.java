@@ -5,9 +5,7 @@ import org.hibernate.Session;
 
 import java.util.List;
 
-/**
- * Created by user on 20.12.2016.
- */
+
 public class ProjectDAOImplH implements ProjectsDAO{
 
     private Session session;
@@ -40,5 +38,10 @@ public class ProjectDAOImplH implements ProjectsDAO{
     @Override
     public List<Project> findByCost(int cost) {
         return null;
+    }
+
+    public List<Project> getAll(){
+
+        return session.createQuery("FROM Project").list();
     }
 }

@@ -7,9 +7,6 @@ import org.hibernate.Transaction;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * Created by user on 16.12.2016.
- */
 public class SkillDAOImplH implements SkillsDAO {
 
     private Session session;
@@ -31,14 +28,12 @@ public class SkillDAOImplH implements SkillsDAO {
 
     @Override
     public void delete(long id) {
-
         Transaction tx = session.beginTransaction();
         Object persistentInstance = session.load(Skill.class, id);
         if (persistentInstance != null) {
             session.delete(persistentInstance);
             tx.commit();
             session.close();
-
         }
     }
 

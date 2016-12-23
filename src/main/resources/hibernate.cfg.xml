@@ -24,6 +24,9 @@
     </property>
     <mapping class="com.goit.ee.module2.dto.Developer"/>
     <mapping class="com.goit.ee.module2.dto.Skill"/>
+    <mapping class="com.goit.ee.module2.dto.Project"/>
+    <mapping class="com.goit.ee.module2.dto.Company"/>
+    <mapping class="com.goit.ee.module2.dto.Customer"/>
 
 
     <!-- DB schema will be updated if needed -->
