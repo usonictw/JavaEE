@@ -16,19 +16,6 @@ public class Skill {
     @Column(name = "name")
     private String name;
 
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinTable(name = "dev_skills", joinColumns = @JoinColumn(name = "id_skills"), inverseJoinColumns = @JoinColumn(name = "id_dev"))
-    private Developer developer;
-
-    public Developer getDeveloper() {
-        return developer;
-    }
-
-    public void setDeveloper(Developer developer) {
-        this.developer = developer;
-    }
-
     public Skill() {
     }
 
@@ -66,9 +53,7 @@ public class Skill {
 
     @Override
     public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        return result;
+        return name != null ? name.hashCode() : 0;
     }
 
     @Override

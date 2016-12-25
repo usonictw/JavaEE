@@ -7,7 +7,7 @@ import java.util.List;
 
 public class DevelopersDAOImplH implements DevelopersDAO {
 
-    private Session session = HibernateSessionFactory.getSessionFactory().getCurrentSession();
+    private Session session;
 
     @Override
     public void create(Developer developer) {

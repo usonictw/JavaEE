@@ -26,10 +26,13 @@ public class HibernateRunner {
        developersDAOImplH.setSession(session);
        skillDAOImplH.setSession(session);
 
-       skillDAOImplH.getAll().forEach(System.out::println);
+
 
        Transaction tx = session.beginTransaction();
-        skillDAOImplH.delete(18);
+        skillDAOImplH.getAll().forEach(System.out::println);
+        System.out.println();
+        developersDAOImplH.getAll().forEach(System.out::println);
+       // skillDAOImplH.delete(18);
 
       /* Developer developer = new Developer();
        developer.setAge(23);

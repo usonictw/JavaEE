@@ -2,6 +2,7 @@ package com.goit.ee.module2.contoller;
 
 import com.goit.ee.module2.dao.DevelopersDAOImplH;
 import com.goit.ee.module2.dto.Developer;
+import com.goit.ee.module2.dto.Skill;
 
 import static com.goit.ee.module2.contoller.Command.*;
 import static com.goit.ee.module2.contoller.ConsoleUtils.getParam;
@@ -20,6 +21,7 @@ public class DeveloperController implements Executable {
                 developer.setLastName(readParameter("last_name"));
                 developer.setAge(getParam("age"));
                 developer.setSalary(getParam("salary"));
+                developer.addSkill(new Skill().setName(readParameter("name")));
                 developersDAOImplH.create(developer);
 
                 break;
@@ -27,7 +29,7 @@ public class DeveloperController implements Executable {
                     developersDAOImplH.get(getParam("id"));
                     break;
                 case UPDATE:
-                    developersDAOImplH.update(new Developer(getParam("id"),
+                    developersDAOImplH.update(new Developer(
                             getParam("age"),
                             readParameter("first_name"),
                             readParameter("last_name"),

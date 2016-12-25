@@ -44,7 +44,7 @@ public class SkillDAOImplH implements SkillsDAO {
 
     public List getAll() {
 
-        return session.createQuery("SELECT s FROM Skill as s").list();
+        return session.createQuery("select s from Skill as s").list();
     }
 
     public Session getSession() {

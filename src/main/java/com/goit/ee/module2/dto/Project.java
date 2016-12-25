@@ -1,4 +1,5 @@
 package com.goit.ee.module2.dto;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,13 +23,6 @@ public class Project {
     @JoinTable(name = "proj_dev", joinColumns = @JoinColumn(name = "id_proj"), inverseJoinColumns = @JoinColumn(name = "id_dev"))
     private Set<Developer> developers = new HashSet<>();
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinTable(name = "cust_proj", joinColumns = @JoinColumn(name = "id_proj"), inverseJoinColumns = @JoinColumn(name = "id_cust"))
-    private Customer customer;
-
-    @ManyToOne
-    @JoinTable(name = "comp_proj", joinColumns = @JoinColumn(name = "id_proj"), inverseJoinColumns = @JoinColumn(name = "id_comp"))
-    private Company company;
 
     public Project() {
     }
@@ -39,15 +33,7 @@ public class Project {
         this.cost = cost;
     }
 
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public void addDevelopers(Developer developer){
+    public void addDevelopers(Developer developer) {
 
         developers.add(developer);
     }

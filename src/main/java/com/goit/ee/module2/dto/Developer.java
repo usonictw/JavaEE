@@ -29,15 +29,10 @@ public class Developer {
     @JoinTable(name = "dev_skills", joinColumns = @JoinColumn(name = "id_dev"), inverseJoinColumns = @JoinColumn(name = "id_skills"))
     private Set<Skill> skills = new HashSet<>();
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinTable(name = "proj_dev")
-    private Project project;
-
     public Developer() {
     }
 
-    public Developer(long id, int age, String firstName, String lastName, int salary) {
-        this.id = id;
+    public Developer(int age, String firstName, String lastName, int salary) {
         this.salary = salary;
         this.age = age;
         this.firstName = firstName;
@@ -108,16 +103,29 @@ public class Developer {
         if (age != developer.age) return false;
         if (salary != developer.salary) return false;
         if (firstName != null ? !firstName.equals(developer.firstName) : developer.firstName != null) return false;
-        return lastName != null ? lastName.equals(developer.lastName) : developer.lastName == null;
+        if (lastName != null ? !lastName.equals(developer.lastName) : developer.lastName != null) return false;
+        return skills != null ? skills.equals(developer.skills) : developer.skills == null;
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + age;
+        int result = age;
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + salary;
+        result = 31 * result + (skills != null ? skills.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Developer{" +
+                "id=" + id +
+                ", age=" + age +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", salary=" + salary +
+                ", skills=" + skills +
+                '}';
     }
 }
