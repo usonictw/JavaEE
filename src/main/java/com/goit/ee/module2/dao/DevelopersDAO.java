@@ -2,6 +2,8 @@ package com.goit.ee.module2.dao;
 
 import com.goit.ee.module2.dto.Developer;
 
+import java.util.List;
+
 
 //    Create DevelopersDAO interface that implement DAO and also add method specific for the developer table, like:
 //    findByName(String name),
@@ -11,6 +13,6 @@ import com.goit.ee.module2.dto.Developer;
 //    Create DevelopersDAOImpl class which implements DeveloperDAO interface and implement all methods using JDBC.
 
 public interface DevelopersDAO extends DAO<Developer> {
-    boolean findByName(String name);
-    boolean findByNameAndLastName(String name, String lastName);
+    List<Developer> findByName(String name);
+    List<Developer> findByNameAndLastName(String name, String lastName);
 }

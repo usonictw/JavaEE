@@ -25,7 +25,7 @@ public class Developer {
     @Column(name = "salary")
     private int salary;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Skill.class)
     @JoinTable(name = "dev_skills", joinColumns = @JoinColumn(name = "id_dev"), inverseJoinColumns = @JoinColumn(name = "id_skills"))
     private Set<Skill> skills = new HashSet<>();
 

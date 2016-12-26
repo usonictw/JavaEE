@@ -20,7 +20,7 @@ public class Company {
     @Column(name = "address")
     private String address;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Project.class)
     @JoinTable(name = "comp_proj", joinColumns = @JoinColumn(name = "id_comp"), inverseJoinColumns = @JoinColumn(name = "id_proj"))
     private Set<Project> projects = new HashSet<>();
 

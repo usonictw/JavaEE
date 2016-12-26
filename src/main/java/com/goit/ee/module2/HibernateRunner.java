@@ -19,37 +19,19 @@ public class HibernateRunner {
 
     public static void main(String[] args) {
 
-       Session session = HibernateSessionFactory.getSessionFactory().openSession();
 
-       DevelopersDAOImplH developersDAOImplH = new DevelopersDAOImplH();
-       SkillDAOImplH skillDAOImplH = new SkillDAOImplH();
-       developersDAOImplH.setSession(session);
-       skillDAOImplH.setSession(session);
+        DevelopersDAOImplH developersDAOImplH = new DevelopersDAOImplH();
+        SkillDAOImplH skillDAOImplH = new SkillDAOImplH();
 
-
-
-       Transaction tx = session.beginTransaction();
         skillDAOImplH.getAll().forEach(System.out::println);
         System.out.println();
         developersDAOImplH.getAll().forEach(System.out::println);
-       // skillDAOImplH.delete(18);
+        System.out.println();
+        developersDAOImplH.delete(26);
+        System.out.println();
+        developersDAOImplH.getAll().forEach(System.out::println);
 
-      /* Developer developer = new Developer();
-       developer.setAge(23);
-       developer.setFirstName("Ivan");
-       developer.setLastName("Ivanov");
-       developer.setSalary(23000);
-
-       Skill skill = new Skill();
-       skill.setName("C");
-       developer.addSkill(skill);
-
-       session.save(developer);
-       */
-       tx.commit();
-       session.close();
-
-
+        // skillDAOImplH.delete(18);
 
 
 

@@ -12,12 +12,23 @@ public class CompaniesDAOImplH implements CompaniesDAO {
 
     @Override
     public void create(Company company) {
+        Transaction tx = session.beginTransaction();
+        try {
+            session.save(company);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            tx.commit();
+            session.close();
+        }
 
     }
 
     @Override
     public Company get(long id) {
-        return null;
+        Transaction tx = session.beginTransaction();
+        Object persisntanceIntance = session.load(Company.class, id);
+        return (Company) persisntanceIntance;
     }
 
     @Override

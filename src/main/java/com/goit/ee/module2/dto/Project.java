@@ -19,7 +19,7 @@ public class Project {
     @Column(name = "cost")
     private int cost;
 
-    @OneToMany(cascade = CascadeType.ALL, targetEntity = Developer.class)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Developer.class)
     @JoinTable(name = "proj_dev", joinColumns = @JoinColumn(name = "id_proj"), inverseJoinColumns = @JoinColumn(name = "id_dev"))
     private Set<Developer> developers = new HashSet<>();
 
