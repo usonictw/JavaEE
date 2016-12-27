@@ -2,6 +2,7 @@ package com.goit.ee.module2.contoller;
 
 import com.goit.ee.module2.dao.CustomerDAOImplH;
 import com.goit.ee.module2.dto.Customer;
+
 import static com.goit.ee.module2.contoller.ConsoleUtils.*;
 
 public class CustomerController implements Executable {
@@ -17,7 +18,6 @@ public class CustomerController implements Executable {
                 customer.setName(readParameter("name"));
                 customer.setAddress(readParameter("address"));
                 customerDAO.create(customer);
-
                 break;
             case READ:
                 customerDAO.get(getParam("id"));
@@ -25,12 +25,11 @@ public class CustomerController implements Executable {
             case UPDATE:
                 customerDAO.update(new Customer(getParam("id"),
                         readParameter("name"),
-                        readParameter("address")));
+                        readParameter("address")), getParam("id"));
                 customerDAO.getAll().forEach(System.out::println);
                 break;
             case DELETE:
-                int byId = getParam("id");
-                customerDAO.delete(byId);
+                customerDAO.delete(getParam("id"));
                 customerDAO.getAll().forEach(System.out::println);
                 break;
             case GET_ALL:

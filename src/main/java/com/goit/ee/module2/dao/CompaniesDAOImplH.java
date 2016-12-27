@@ -32,7 +32,7 @@ public class CompaniesDAOImplH implements CompaniesDAO {
     }
 
     @Override
-    public void update(Company company) {
+    public void update(Company company, long id) {
 
     }
 

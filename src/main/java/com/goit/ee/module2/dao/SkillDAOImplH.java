@@ -46,7 +46,7 @@ public class SkillDAOImplH implements SkillsDAO {
     }
 
     @Override
-    public void update(Skill skill) {
+    public void update(Skill skill, long id) {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         try {

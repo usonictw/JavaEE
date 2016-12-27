@@ -1,5 +1,7 @@
 package com.goit.ee.module2.contoller;
 
+import com.goit.ee.module2.dto.Developer;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -19,7 +21,7 @@ public class ConsoleUtils {
         return parameter;
     }
 
-    public static int getParam(String parameter) {
+    public static long getParam(String parameter) {
         int paramInt = 0;
         System.out.println("Input " + parameter);
         try {
@@ -35,6 +37,12 @@ public class ConsoleUtils {
             System.out.println("Input parameter correctly");
         }
         return paramInt;
+    }
+
+    public static void main(String[] args) {
+
+        ;
+        Developer developer = new Developer((int)ConsoleUtils.getParam("23"), "ds", "fd", (int)getParam("344"));
     }
 
 }

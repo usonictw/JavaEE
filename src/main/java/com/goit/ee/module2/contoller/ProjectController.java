@@ -14,7 +14,7 @@ public class ProjectController implements Executable {
             case CREATE:
                 Project project = new Project();
                 project.setName(readParameter("name"));
-                project.setCost(getParam("cost"));
+                project.setCost((int)getParam("cost"));
                 projectDAO.create(project);
                 break;
             case READ:
@@ -23,11 +23,11 @@ public class ProjectController implements Executable {
             case UPDATE:
                 projectDAO.update(new Project(getParam("id"),
                         readParameter("name"),
-                        getParam("cost")));
+                        (int)getParam("cost")), getParam("id"));
                 projectDAO.getAll().forEach(System.out::println);
                 break;
             case DELETE:
-                int byId = getParam("id");
+                long byId = getParam("id");
                 projectDAO.delete(byId);
                     projectDAO.getAll().forEach(System.out::println);
                 break;

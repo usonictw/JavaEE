@@ -21,7 +21,7 @@ public class ProjectDAOImplH implements ProjectsDAO{
     }
 
     @Override
-    public void update(Project project) {
+    public void update(Project project, long id) {
 
     }
 

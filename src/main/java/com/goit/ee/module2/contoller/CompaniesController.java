@@ -27,7 +27,7 @@ public class CompaniesController implements Executable {
             case UPDATE:
                 companiesDAO.update(new Company(getParam("id"),
                         readParameter("name"),
-                        readParameter("address")));
+                        readParameter("address")), getParam("id"));
                 break;
             case DELETE:
                 companiesDAO.delete(getParam("id"));

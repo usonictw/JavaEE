@@ -20,7 +20,7 @@ public class CustomerDAOImplH implements CustomerDAO {
     }
 
     @Override
-    public void update(Customer customer) {
+    public void update(Customer customer, long id) {
 
     }
 

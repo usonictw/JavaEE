@@ -2,6 +2,7 @@ package com.goit.ee.module2.contoller;
 
 import com.goit.ee.module2.dao.SkillDAOImplH;
 import com.goit.ee.module2.dto.Skill;
+
 import static com.goit.ee.module2.contoller.ConsoleUtils.*;
 
 public class SkillController implements Executable {
@@ -21,12 +22,11 @@ public class SkillController implements Executable {
                 break;
             case UPDATE:
                 skillsDAO.update(new Skill(getParam("id"),
-                        readParameter("name")));
+                        readParameter("name")), getParam("id"));
                 skillsDAO.getAll().forEach(System.out::println);
                 break;
             case DELETE:
-                int byId = getParam("id");
-                skillsDAO.delete(byId);
+                skillsDAO.delete(getParam("id"));
 
                 break;
             case GET_ALL:

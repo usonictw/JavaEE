@@ -2,9 +2,7 @@ package com.goit.ee.module2.dao;
 
 import com.goit.ee.module2.dto.Developer;
 import com.goit.ee.module2.util.HibernateSessionFactory;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import org.hibernate.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +42,7 @@ public class DevelopersDAOImplH implements DevelopersDAO {
     }
 
     @Override
-    public void update(Developer developer) {
+    public void update(Developer developer, long id) {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         try {
@@ -62,7 +60,11 @@ public class DevelopersDAOImplH implements DevelopersDAO {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         try {
-            session.delete(get(id));
+            session.createSQLQuery("delete from dev_skills where id_dev = " + id).executeUpdate();
+            session.createSQLQuery("DELETE FROM proj_dev WHERE id_dev = " + id).executeUpdate();
+            Developer developer = new Developer();
+            developer.setId(id);
+            session.delete(developer);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -95,7 +97,7 @@ public class DevelopersDAOImplH implements DevelopersDAO {
             tx.commit();
             session.close();
         }
-       return null;
+        return null;
     }
 
     public void setSession(Session session) {

@@ -20,21 +20,5 @@ public class HibernateRunner {
     public static void main(String[] args) {
 
 
-        DevelopersDAOImplH developersDAOImplH = new DevelopersDAOImplH();
-        SkillDAOImplH skillDAOImplH = new SkillDAOImplH();
-
-        skillDAOImplH.getAll().forEach(System.out::println);
-        System.out.println();
-        developersDAOImplH.getAll().forEach(System.out::println);
-        System.out.println();
-        developersDAOImplH.delete(26);
-        System.out.println();
-        developersDAOImplH.getAll().forEach(System.out::println);
-
-        // skillDAOImplH.delete(18);
-
-
-
-
     }
 }
