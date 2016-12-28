@@ -16,6 +16,8 @@ public class Skill {
     @Column(name = "name")
     private String name;
 
+
+
     public Skill() {
     }
 
@@ -23,6 +25,7 @@ public class Skill {
         this.id = id;
         this.name = name;
     }
+
 
     public long getId() {
         return id;
@@ -58,9 +61,9 @@ public class Skill {
 
     @Override
     public String toString() {
-        return "Skill{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append("ID "+ id + ". " + name + "\n");
+        return stringBuffer.toString();
     }
 }

@@ -34,13 +34,13 @@ public class SkillDAOImplH implements SkillsDAO {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         try {
-            Object persistenceInstance = session.load(Skill.class, id);
+            Object persistenceInstance = session.get(Skill.class, id);
             return (Skill) persistenceInstance;
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            tx.commit();
-            session.close();
+            session.getTransaction().commit();
+            //session.close();
         }
         return null;
     }

@@ -50,10 +50,4 @@ public class CreateMenuLevel1 {
         });
         menu1.choiceItem();
     }
-
-    public static void main(String[] args) {
-
-        CreateMenuLevel1 createMenuLevel1 = new CreateMenuLevel1();
-        createMenuLevel1.menu1();
-    }
 }

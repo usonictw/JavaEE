@@ -1,6 +1,7 @@
 package com.goit.ee.module2.dao;
 
 import com.goit.ee.module2.dto.Developer;
+import com.goit.ee.module2.dto.Skill;
 import com.goit.ee.module2.util.HibernateSessionFactory;
 import org.hibernate.*;
 
@@ -9,7 +10,7 @@ import java.util.List;
 
 public class DevelopersDAOImplH implements DevelopersDAO {
 
-    Session session = HibernateSessionFactory.getSessionFactory().openSession();
+    //Session session = HibernateSessionFactory.getSessionFactory().openSession();
 
     @Override
     public void create(Developer developer) {
@@ -100,11 +101,4 @@ public class DevelopersDAOImplH implements DevelopersDAO {
         return null;
     }
 
-    public void setSession(Session session) {
-        this.session = session;
-    }
-
-    public Session getSession() {
-        return session;
-    }
 }
