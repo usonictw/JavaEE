@@ -5,7 +5,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 //@SuppressWarnings("ALL")
-public class HibernateSessionFactory {
+public abstract class HibernateSessionFactory {
 
     private static SessionFactory sessionFactory;
 

@@ -2,6 +2,7 @@ package com.goit.ee.module2.dto;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -47,9 +48,9 @@ public class Developer {
         this.skills = skills;
     }
 
-    public void addSkill(Skill skill) {
+    public void addSkill(List<Skill> skill) {
 
-        this.skills.add(skill);
+        this.skills.addAll(skill);
     }
 
     public long getId() {
@@ -99,21 +100,20 @@ public class Developer {
 
         Developer developer = (Developer) o;
 
-        if (id != developer.id) return false;
         if (age != developer.age) return false;
         if (salary != developer.salary) return false;
-        if (firstName != null ? !firstName.equals(developer.firstName) : developer.firstName != null) return false;
-        if (lastName != null ? !lastName.equals(developer.lastName) : developer.lastName != null) return false;
-        return skills != null ? skills.equals(developer.skills) : developer.skills == null;
+        if (!firstName.equals(developer.firstName)) return false;
+        if (!lastName.equals(developer.lastName)) return false;
+        return skills.equals(developer.skills);
     }
 
     @Override
     public int hashCode() {
         int result = age;
-        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        result = 31 * result + firstName.hashCode();
+        result = 31 * result + lastName.hashCode();
         result = 31 * result + salary;
-        result = 31 * result + (skills != null ? skills.hashCode() : 0);
+        result = 31 * result + skills.hashCode();
         return result;
     }
 
@@ -124,8 +124,8 @@ public class Developer {
                 ", age=" + age +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", salary=" + salary +
-                ", skills=" + skills +
-                '}';
+                ", salary=" + salary +"}"+"\n" +
+                " skills: " + "\n" + "  " + skills +
+                "\n";
     }
 }

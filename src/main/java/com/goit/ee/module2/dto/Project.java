@@ -2,6 +2,7 @@ package com.goit.ee.module2.dto;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -17,7 +18,7 @@ public class Project {
     private String name;
 
     @Column(name = "cost")
-    private int cost;
+    private long cost;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Developer.class)
     @JoinTable(name = "proj_dev", joinColumns = @JoinColumn(name = "id_proj"), inverseJoinColumns = @JoinColumn(name = "id_dev"))
@@ -33,9 +34,9 @@ public class Project {
         this.cost = cost;
     }
 
-    public void addDevelopers(Developer developer) {
+    public void addDevelopers(List<Developer> developer) {
 
-        developers.add(developer);
+        developers.addAll(developer);
     }
 
     public Set<Developer> getDevelopers() {
@@ -62,11 +63,11 @@ public class Project {
         this.name = name;
     }
 
-    public int getCost() {
+    public long getCost() {
         return cost;
     }
 
-    public void setCost(int cost) {
+    public void setCost(long cost) {
         this.cost = cost;
     }
 
@@ -77,16 +78,16 @@ public class Project {
 
         Project project = (Project) o;
 
-        if (id != project.id) return false;
         if (cost != project.cost) return false;
-        return name != null ? name.equals(project.name) : project.name == null;
+        if (!name.equals(project.name)) return false;
+        return developers.equals(project.developers);
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + cost;
+        int result = name.hashCode();
+        result = 31 * result + (int) (cost ^ (cost >>> 32));
+        result = 31 * result + developers.hashCode();
         return result;
     }
 
@@ -95,7 +96,8 @@ public class Project {
         return "Project{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", cost=" + cost +
-                '}';
+                ", cost=" + cost + "} :" + "\n" +
+                " developers: "+"\n" + "  " + developers +
+                "\n";
     }
 }

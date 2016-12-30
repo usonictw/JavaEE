@@ -1,19 +1,13 @@
 package com.goit.ee.module2;
 
-import com.goit.ee.module2.dto.*;
 import com.goit.ee.module2.menu.CreateMenuLevel1;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-
 
 public class ConsoleRunner {
 
     public void run() {
-
 
         System.out.println("Welcome to the console application to work with the database");
 
@@ -33,10 +27,7 @@ public class ConsoleRunner {
             e.getStackTrace();
         }
     }
-
-
     public static void main(String[] args) {
-
         ConsoleRunner consoleRunner = new ConsoleRunner();
         consoleRunner.run();
     }

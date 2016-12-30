@@ -32,7 +32,7 @@ public class SkillDAOImplH implements SkillsDAO {
     @Override
     public Skill get(long id) {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
-        Transaction tx = session.beginTransaction();
+        session.beginTransaction();
         try {
             Object persistenceInstance = session.get(Skill.class, id);
             return (Skill) persistenceInstance;
@@ -40,7 +40,7 @@ public class SkillDAOImplH implements SkillsDAO {
             e.printStackTrace();
         } finally {
             session.getTransaction().commit();
-            //session.close();
+            session.close();
         }
         return null;
     }

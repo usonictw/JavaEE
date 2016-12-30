@@ -6,7 +6,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class ConsoleUtils {
+public abstract class  ConsoleUtils {
 
     public static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -38,11 +38,4 @@ public class ConsoleUtils {
         }
         return paramInt;
     }
-
-    public static void main(String[] args) {
-
-        ;
-        Developer developer = new Developer((int)ConsoleUtils.getParam("23"), "ds", "fd", (int)getParam("344"));
-    }
-
 }

@@ -4,9 +4,8 @@ import com.goit.ee.module2.dao.DevelopersDAOImplH;
 import com.goit.ee.module2.dao.SkillDAOImplH;
 import com.goit.ee.module2.dto.Developer;
 import com.goit.ee.module2.dto.Skill;
-
+import java.util.ArrayList;
 import java.util.List;
-
 import static com.goit.ee.module2.contoller.ConsoleUtils.getParam;
 import static com.goit.ee.module2.contoller.ConsoleUtils.readParameter;
 
@@ -24,10 +23,16 @@ public class DeveloperController implements Executable {
         return developer;
     }
 
-    private Skill skill() {
+    private List<Skill> skill() {
+        List<Skill> skillList = new ArrayList<>();
+        long numbersSkills;
         SkillDAOImplH skillDAOImplH = new SkillDAOImplH();
         System.out.println(skillDAOImplH.getAll());
-        return skillDAOImplH.get(getParam("id"));
+        numbersSkills = getParam("Number of skills");
+        for (int i = 0; i < numbersSkills; i++) {
+            skillList.add(skillDAOImplH.get(getParam("id")));
+        }
+        return skillList;
     }
 
     @Override
@@ -37,7 +42,7 @@ public class DeveloperController implements Executable {
                 developersDAOImplH.create(createDeveloper());
                 break;
             case READ:
-                developersDAOImplH.get(getParam("id"));
+                System.out.println(developersDAOImplH.get(getParam("id")));
                 break;
             case UPDATE:
                 developersDAOImplH.update(createDeveloper(), getParam("id"));
@@ -46,11 +51,10 @@ public class DeveloperController implements Executable {
                 developersDAOImplH.delete(getParam("id"));
                 break;
             case GET_ALL:
-                developersDAOImplH.getAll();
+                developersDAOImplH.getAll().forEach(System.out::println);
                 break;
             default:
                 System.out.println("Not found command");
         }
     }
-
 }

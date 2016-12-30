@@ -61,9 +61,9 @@ public class Skill {
 
     @Override
     public String toString() {
-
-        StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("ID "+ id + ". " + name + "\n");
-        return stringBuffer.toString();
+        return "Skill{" +
+                "id=" + id + " " +
+                "name='" + name + '\'' +
+                '}';
     }
 }

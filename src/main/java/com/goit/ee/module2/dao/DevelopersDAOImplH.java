@@ -1,16 +1,13 @@
 package com.goit.ee.module2.dao;
 
 import com.goit.ee.module2.dto.Developer;
-import com.goit.ee.module2.dto.Skill;
 import com.goit.ee.module2.util.HibernateSessionFactory;
 import org.hibernate.*;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class DevelopersDAOImplH implements DevelopersDAO {
-
-    //Session session = HibernateSessionFactory.getSessionFactory().openSession();
 
     @Override
     public void create(Developer developer) {
@@ -31,12 +28,11 @@ public class DevelopersDAOImplH implements DevelopersDAO {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         try {
-            Object persistentInstance = session.load(Developer.class, id);
-            return (Developer) persistentInstance;
+            return (Developer) session.get(Developer.class, id);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            tx.commit();
+            session.getTransaction().commit();
             session.close();
         }
         return null;
@@ -47,7 +43,12 @@ public class DevelopersDAOImplH implements DevelopersDAO {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         try {
-            session.update(developer);
+            Developer proxyDeveloper = (Developer) session.get(Developer.class, id);
+            proxyDeveloper.setFirstName(developer.getFirstName());
+            proxyDeveloper.setLastName(developer.getLastName());
+            proxyDeveloper.setSalary(developer.getSalary());
+            proxyDeveloper.setAge(developer.getAge());
+            session.update(proxyDeveloper);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -63,8 +64,7 @@ public class DevelopersDAOImplH implements DevelopersDAO {
         try {
             session.createSQLQuery("delete from dev_skills where id_dev = " + id).executeUpdate();
             session.createSQLQuery("DELETE FROM proj_dev WHERE id_dev = " + id).executeUpdate();
-            Developer developer = new Developer();
-            developer.setId(id);
+            Developer developer = (Developer) session.load(Developer.class, id);
             session.delete(developer);
         } catch (Exception e) {
             e.printStackTrace();
@@ -88,7 +88,7 @@ public class DevelopersDAOImplH implements DevelopersDAO {
     public List<Developer> getAll() {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
-        List<Developer> developerList = new ArrayList<>();
+        List<Developer> developerList;
         try {
             developerList = session.createQuery("SELECT  d FROM Developer d").list();
             return developerList;
@@ -98,7 +98,6 @@ public class DevelopersDAOImplH implements DevelopersDAO {
             tx.commit();
             session.close();
         }
-        return null;
+        return Collections.emptyList();
     }
-
 }
