@@ -22,11 +22,11 @@
     <property name="dialect">
       org.hibernate.dialect.PostgresPlusDialect
     </property>
-    <mapping class="com.goit.ee.module2.dto.Developer"/>
-    <mapping class="com.goit.ee.module2.dto.Skill"/>
-    <mapping class="com.goit.ee.module2.dto.Project"/>
-    <mapping class="com.goit.ee.module2.dto.Company"/>
-    <mapping class="com.goit.ee.module2.dto.Customer"/>
+    <mapping class="com.goit.ee.module3.dto.Developer"/>
+    <mapping class="com.goit.ee.module3.dto.Skill"/>
+    <mapping class="com.goit.ee.module3.dto.Project"/>
+    <mapping class="com.goit.ee.module3.dto.Company"/>
+    <mapping class="com.goit.ee.module3.dto.Customer"/>
 
 
     <!-- DB schema will be updated if needed -->

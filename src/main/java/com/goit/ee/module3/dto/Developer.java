@@ -1,0 +1,131 @@
+package com.goit.ee.module3.dto;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+@Entity
+@Table(name = "developers")
+public class Developer {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private long id;
+
+    @Column(name = "age")
+    private int age;
+
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column(name = "salary")
+    private int salary;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Skill.class)
+    @JoinTable(name = "dev_skills", joinColumns = @JoinColumn(name = "id_dev"), inverseJoinColumns = @JoinColumn(name = "id_skills"))
+    private Set<Skill> skills = new HashSet<>();
+
+    public Developer() {
+    }
+
+    public Developer(int age, String firstName, String lastName, int salary) {
+        this.salary = salary;
+        this.age = age;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public Set<Skill> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(Set<Skill> skills) {
+        this.skills = skills;
+    }
+
+    public void addSkill(List<Skill> skill) {
+
+        this.skills.addAll(skill);
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public int getSalary() {
+        return salary;
+    }
+
+    public void setSalary(int salary) {
+        this.salary = salary;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Developer developer = (Developer) o;
+
+        if (age != developer.age) return false;
+        if (salary != developer.salary) return false;
+        if (!firstName.equals(developer.firstName)) return false;
+        if (!lastName.equals(developer.lastName)) return false;
+        return skills.equals(developer.skills);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = age;
+        result = 31 * result + firstName.hashCode();
+        result = 31 * result + lastName.hashCode();
+        result = 31 * result + salary;
+        result = 31 * result + skills.hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Developer{" +
+                "id=" + id +
+                ", age=" + age +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", salary=" + salary +"}"+"\n" +
+                " skills: " + "\n" + "  " + skills +
+                "\n";
+    }
+}
