@@ -30,8 +30,10 @@ public class ProjectDAOImplH implements ProjectsDAO {
     public Project get(long id) {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
+        Project project = null;
         try {
-            return (Project) session.get(Project.class, id);
+            project = session.get(Project.class, id);
+            return project;
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -49,6 +51,7 @@ public class ProjectDAOImplH implements ProjectsDAO {
             Project proxyProject = (Project) session.get(Project.class, id);
             proxyProject.setName(project.getName());
             proxyProject.setCost(project.getCost());
+            proxyProject.setDevelopers(project.getDevelopers());
             session.update(proxyProject);
         } catch (Exception e) {
             e.printStackTrace();
@@ -90,8 +93,7 @@ public class ProjectDAOImplH implements ProjectsDAO {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         try {
-            List<Project> projectList = session.createQuery("FROM Project").list();
-            return projectList;
+            return (List<Project>) session.createQuery("FROM Project").list();
         } catch (HibernateException e) {
             e.printStackTrace();
         } finally {
@@ -100,11 +102,4 @@ public class ProjectDAOImplH implements ProjectsDAO {
         }
         return Collections.emptyList();
     }
-
-    public static void main(String[] args) {
-
-        ProjectDAOImplH projectDAOImplH = new ProjectDAOImplH();
-        projectDAOImplH.get(2);
-    }
-
 }

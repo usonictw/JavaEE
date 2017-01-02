@@ -20,9 +20,13 @@ public class Project {
     @Column(name = "cost")
     private long cost;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Developer.class)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Developer.class)
     @JoinTable(name = "proj_dev", joinColumns = @JoinColumn(name = "id_proj"), inverseJoinColumns = @JoinColumn(name = "id_dev"))
     private Set<Developer> developers = new HashSet<>();
+
+    @ManyToOne
+    @JoinTable(name = "roj_dev", joinColumns = @JoinColumn(name = "id_dev"), inverseJoinColumns = @JoinColumn(name = "id_proj"))
+    private Project project;
 
 
     public Project() {

@@ -48,6 +48,7 @@ public class DevelopersDAOImplH implements DevelopersDAO {
             proxyDeveloper.setLastName(developer.getLastName());
             proxyDeveloper.setSalary(developer.getSalary());
             proxyDeveloper.setAge(developer.getAge());
+            proxyDeveloper.setSkills(developer.getSkills());
             session.update(proxyDeveloper);
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,15 +63,18 @@ public class DevelopersDAOImplH implements DevelopersDAO {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         try {
-            session.createSQLQuery("delete from dev_skills where id_dev = " + id).executeUpdate();
-            session.createSQLQuery("DELETE FROM proj_dev WHERE id_dev = " + id).executeUpdate();
+            //session.createSQLQuery("delete from dev_skills where id_dev = " + id).executeUpdate();
+            //session.createSQLQuery("DELETE FROM proj_dev WHERE id_dev = " + id).executeUpdate();
             Developer developer = (Developer) session.load(Developer.class, id);
+            //while (developer.getSkills().iterator().hasNext()){
+            //    developer.getSkills().remove(developer.getSkills().iterator().next());
+            //}
             session.delete(developer);
+            session.flush();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            tx.commit();
-            session.close();
+            session.getTransaction().commit();
         }
     }
 
@@ -100,4 +104,13 @@ public class DevelopersDAOImplH implements DevelopersDAO {
         }
         return Collections.emptyList();
     }
+
+
+    public static void main(String[] args) {
+
+        DevelopersDAOImplH developersDAOImplH = new DevelopersDAOImplH();
+        developersDAOImplH.delete(16);
+    }
+
+
 }

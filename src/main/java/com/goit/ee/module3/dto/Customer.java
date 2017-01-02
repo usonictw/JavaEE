@@ -18,7 +18,7 @@ public class Customer {
     @Column(name = "address")
     private String address;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Project.class)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, targetEntity = Project.class)
     @JoinTable(name = "cust_proj", joinColumns = @JoinColumn(name = "id_cust"), inverseJoinColumns = @JoinColumn(name = "id_proj"))
     private Set<Project> projects = new HashSet<>();
 

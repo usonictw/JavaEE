@@ -6,7 +6,9 @@ import com.goit.ee.module3.dto.Developer;
 import com.goit.ee.module3.dto.Project;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static com.goit.ee.module3.contoller.ConsoleUtils.*;
 
@@ -18,15 +20,15 @@ public class ProjectController implements Executable {
         Project project = new Project();
         project.setName(readParameter("name of project"));
         project.setCost(getParam("cost"));
-        project.addDevelopers(developers());
-
+        project.setDevelopers(developers());
         return project;
     }
 
-    private List<Developer> developers() {
-        List<Developer> developerList = new ArrayList<>();
-        DevelopersDAOImplH developersDAOImplH = new DevelopersDAOImplH();
+    private Set<Developer> developers() {
+
         long numberOfDevelopers;
+        Set<Developer> developerList = new HashSet<>();
+        DevelopersDAOImplH developersDAOImplH = new DevelopersDAOImplH();
         developersDAOImplH.getAll().forEach(System.out::println);
         numberOfDevelopers = getParam("number of developers");
         for (int i = 0; i < numberOfDevelopers; i++) {

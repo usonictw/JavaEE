@@ -1,5 +1,7 @@
 package com.goit.ee.module3.dto;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.List;
@@ -26,8 +28,9 @@ public class Developer {
     @Column(name = "salary")
     private int salary;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Skill.class)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, targetEntity = Skill.class)
     @JoinTable(name = "dev_skills", joinColumns = @JoinColumn(name = "id_dev"), inverseJoinColumns = @JoinColumn(name = "id_skills"))
+
     private Set<Skill> skills = new HashSet<>();
 
     public Developer() {
