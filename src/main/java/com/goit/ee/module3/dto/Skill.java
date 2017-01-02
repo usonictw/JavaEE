@@ -1,6 +1,7 @@
 package com.goit.ee.module3.dto;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "skills")
@@ -14,11 +15,6 @@ public class Skill {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne()
-    @JoinTable(name = "dev_skills", joinColumns = @JoinColumn(name = "id_skills"), inverseJoinColumns = @JoinColumn(name = "id_dev"))
-    private Developer developer;
-
-
     public Skill() {
     }
 
@@ -27,14 +23,6 @@ public class Skill {
         this.name = name;
     }
 
-
-    public Developer getDeveloper() {
-        return developer;
-    }
-
-    public void setDeveloper(Developer developer) {
-        this.developer = developer;
-    }
 
     public long getId() {
         return id;

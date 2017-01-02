@@ -28,10 +28,13 @@ public class Developer {
     @Column(name = "salary")
     private int salary;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, targetEntity = Skill.class)
-    @JoinTable(name = "dev_skills", joinColumns = @JoinColumn(name = "id_dev"), inverseJoinColumns = @JoinColumn(name = "id_skills"))
-
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Skill.class)
+    @JoinTable(name = "dev_skills",
+            joinColumns = @JoinColumn(name = "id_dev"),
+            inverseJoinColumns = @JoinColumn(name = "id_skills"))
     private Set<Skill> skills = new HashSet<>();
+
+
 
     public Developer() {
     }
@@ -55,6 +58,7 @@ public class Developer {
 
         this.skills.addAll(skill);
     }
+
 
     public long getId() {
         return id;
@@ -127,7 +131,7 @@ public class Developer {
                 ", age=" + age +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", salary=" + salary +"}"+"\n" +
+                ", salary=" + salary + "}" + "\n" +
                 " skills: " + "\n" + "  " + skills +
                 "\n";
     }

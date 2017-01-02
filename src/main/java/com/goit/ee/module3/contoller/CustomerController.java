@@ -26,11 +26,11 @@ public class CustomerController implements Executable {
                 customerDAO.update(new Customer(getParam("id"),
                         readParameter("name"),
                         readParameter("address")), getParam("id"));
-                customerDAO.getAll().forEach(System.out::println);
+
                 break;
             case DELETE:
-                customerDAO.delete(getParam("id"));
-                customerDAO.getAll().forEach(System.out::println);
+                customerDAO.delete(getParam("id of customer"));
+
                 break;
             case GET_ALL:
                 customerDAO.getAll().forEach(System.out::println);

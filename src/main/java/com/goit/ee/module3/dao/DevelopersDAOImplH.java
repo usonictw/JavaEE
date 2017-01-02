@@ -3,7 +3,6 @@ package com.goit.ee.module3.dao;
 import com.goit.ee.module3.dto.Developer;
 import com.goit.ee.module3.util.HibernateSessionFactory;
 import org.hibernate.*;
-
 import java.util.Collections;
 import java.util.List;
 
@@ -63,14 +62,10 @@ public class DevelopersDAOImplH implements DevelopersDAO {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         try {
-            //session.createSQLQuery("delete from dev_skills where id_dev = " + id).executeUpdate();
-            //session.createSQLQuery("DELETE FROM proj_dev WHERE id_dev = " + id).executeUpdate();
-            Developer developer = (Developer) session.load(Developer.class, id);
-            //while (developer.getSkills().iterator().hasNext()){
-            //    developer.getSkills().remove(developer.getSkills().iterator().next());
-            //}
+            session.createSQLQuery("DELETE from dev_skills where id_dev = " + id).executeUpdate();
+            session.createSQLQuery("DELETE FROM proj_dev WHERE id_dev = " + id).executeUpdate();
+            Developer developer = session.load(Developer.class, id);
             session.delete(developer);
-            session.flush();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -104,13 +99,4 @@ public class DevelopersDAOImplH implements DevelopersDAO {
         }
         return Collections.emptyList();
     }
-
-
-    public static void main(String[] args) {
-
-        DevelopersDAOImplH developersDAOImplH = new DevelopersDAOImplH();
-        developersDAOImplH.delete(16);
-    }
-
-
 }
