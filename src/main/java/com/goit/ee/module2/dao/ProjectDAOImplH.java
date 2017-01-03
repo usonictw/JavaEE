@@ -35,7 +35,7 @@ public class ProjectDAOImplH implements ProjectsDAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            tx.commit();
+            session.getTransaction().commit();
             session.close();
         }
         return null;
