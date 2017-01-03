@@ -54,7 +54,7 @@ public class Developer {
         this.skills = skills;
     }
 
-    public void addSkill(List<Skill> skill) {
+    public void addSkill(Set<Skill> skill) {
 
         this.skills.addAll(skill);
     }
@@ -110,8 +110,7 @@ public class Developer {
         if (age != developer.age) return false;
         if (salary != developer.salary) return false;
         if (!firstName.equals(developer.firstName)) return false;
-        if (!lastName.equals(developer.lastName)) return false;
-        return skills.equals(developer.skills);
+        return lastName.equals(developer.lastName);
     }
 
     @Override
@@ -120,7 +119,6 @@ public class Developer {
         result = 31 * result + firstName.hashCode();
         result = 31 * result + lastName.hashCode();
         result = 31 * result + salary;
-        result = 31 * result + skills.hashCode();
         return result;
     }
 

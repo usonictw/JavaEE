@@ -33,7 +33,7 @@ public class Project {
         this.cost = cost;
     }
 
-    public void addDevelopers(List<Developer> developer) {
+    public void addDevelopers(Set<Developer> developer) {
 
         developers.addAll(developer);
     }
@@ -78,15 +78,13 @@ public class Project {
         Project project = (Project) o;
 
         if (cost != project.cost) return false;
-        if (!name.equals(project.name)) return false;
-        return developers.equals(project.developers);
+        return name.equals(project.name);
     }
 
     @Override
     public int hashCode() {
         int result = name.hashCode();
         result = 31 * result + (int) (cost ^ (cost >>> 32));
-        result = 31 * result + developers.hashCode();
         return result;
     }
 

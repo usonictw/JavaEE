@@ -9,7 +9,7 @@ import java.util.Set;
 public class Customer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "name")
@@ -18,7 +18,7 @@ public class Customer {
     @Column(name = "address")
     private String address;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, targetEntity = Project.class)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, targetEntity = Project.class)
     @JoinTable(name = "cust_proj", joinColumns = @JoinColumn(name = "id_cust"), inverseJoinColumns = @JoinColumn(name = "id_proj"))
     private Set<Project> projects = new HashSet<>();
 
@@ -92,7 +92,8 @@ public class Customer {
         return "Customer{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", address='" + address + '\'' +
-                '}';
+                ", address='" + address + '\'' + "\n" +
+                "Projects" + projects +
+                '}' + "\n";
     }
 }

@@ -44,7 +44,7 @@ public class ProjectController implements Executable {
                 projectDAO.create(transientProject());
                 break;
             case READ:
-                projectDAO.get(getParam("id of project"));
+                System.out.println(projectDAO.get(getParam("id of project")));
                 break;
             case UPDATE:
                 projectDAO.update(transientProject(), getParam("id of project"));

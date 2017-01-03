@@ -7,7 +7,9 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class SkillDAOImplH implements SkillsDAO {
 
@@ -21,8 +23,9 @@ public class SkillDAOImplH implements SkillsDAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            tx.commit();
-            session.close();
+            session.flush();
+            session.getTransaction();
+            session.clear();
         }
 
     }
@@ -37,8 +40,9 @@ public class SkillDAOImplH implements SkillsDAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+            session.flush();
             session.getTransaction().commit();
-            session.close();
+            session.clear();
         }
         return null;
     }
@@ -52,8 +56,9 @@ public class SkillDAOImplH implements SkillsDAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            tx.commit();
-            session.close();
+           session.flush();
+           session.getTransaction().commit();
+           session.clear();
         }
     }
 
@@ -64,8 +69,9 @@ public class SkillDAOImplH implements SkillsDAO {
         Object persistentInstance = session.load(Skill.class, id);
         if (persistentInstance != null) {
             session.delete(persistentInstance);
-            tx.commit();
-            session.close();
+            session.flush();
+            session.getTransaction().commit();
+            session.clear();
         }
     }
 
@@ -74,13 +80,11 @@ public class SkillDAOImplH implements SkillsDAO {
         return null;
     }
 
-    public List getAll() {
+    public Set<Skill> getAll() {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
-        List<Skill> skillList = new ArrayList<>();
         Transaction tx = session.beginTransaction();
         try {
-            skillList = session.createQuery("select s from Skill as s").list();
-            return skillList;
+            return new HashSet<>(session.createQuery("select s from Skill as s").list());
         } catch (HibernateException e) {
             e.printStackTrace();
         } finally {

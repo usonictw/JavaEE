@@ -47,7 +47,6 @@ public class Skill {
 
         Skill skill = (Skill) o;
 
-        if (id != skill.id) return false;
         return name != null ? name.equals(skill.name) : skill.name == null;
     }
 

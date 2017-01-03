@@ -3,8 +3,11 @@ package com.goit.ee.module3.dao;
 import com.goit.ee.module3.dto.Developer;
 import com.goit.ee.module3.util.HibernateSessionFactory;
 import org.hibernate.*;
+
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class DevelopersDAOImplH implements DevelopersDAO {
 
@@ -17,8 +20,9 @@ public class DevelopersDAOImplH implements DevelopersDAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            tx.commit();
-            session.close();
+           session.flush();
+           session.getTransaction().commit();
+           session.clear();
         }
     }
 
@@ -31,8 +35,9 @@ public class DevelopersDAOImplH implements DevelopersDAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+            session.flush();
             session.getTransaction().commit();
-            session.close();
+            session.clear();
         }
         return null;
     }
@@ -52,8 +57,9 @@ public class DevelopersDAOImplH implements DevelopersDAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            tx.commit();
-            session.close();
+            session.flush();
+            session.getTransaction().commit();
+            session.clear();
         }
     }
 
@@ -64,7 +70,7 @@ public class DevelopersDAOImplH implements DevelopersDAO {
         try {
             session.createSQLQuery("DELETE from dev_skills where id_dev = " + id).executeUpdate();
             session.createSQLQuery("DELETE FROM proj_dev WHERE id_dev = " + id).executeUpdate();
-            Developer developer = session.load(Developer.class, id);
+            Developer developer = (Developer) session.load(Developer.class, id);
             session.delete(developer);
         } catch (Exception e) {
             e.printStackTrace();
@@ -84,19 +90,18 @@ public class DevelopersDAOImplH implements DevelopersDAO {
         return null;
     }
 
-    public List<Developer> getAll() {
+    public Set<Developer> getAll() {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
-        List<Developer> developerList;
+        Set<Developer> developerList;
         try {
-            developerList = session.createQuery("SELECT  d FROM Developer d").list();
-            return developerList;
+            return new HashSet<>(session.createQuery("SELECT  d FROM Developer d").list());
         } catch (HibernateException e) {
             e.printStackTrace();
         } finally {
             tx.commit();
             session.close();
         }
-        return Collections.emptyList();
+        return Collections.emptySet();
     }
 }

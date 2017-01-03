@@ -2,12 +2,15 @@ package com.goit.ee.module3.dao;
 
 import com.goit.ee.module3.dto.Project;
 import com.goit.ee.module3.util.HibernateSessionFactory;
+import org.hibernate.Cache;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 public class ProjectDAOImplH implements ProjectsDAO {
@@ -21,8 +24,9 @@ public class ProjectDAOImplH implements ProjectsDAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            tx.commit();
-            session.close();
+            session.flush();
+            session.getTransaction().commit();
+            session.clear();
         }
     }
 
@@ -30,15 +34,15 @@ public class ProjectDAOImplH implements ProjectsDAO {
     public Project get(long id) {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
-        Project project = null;
         try {
-            project = session.get(Project.class, id);
+            Project project = (Project) session.get(Project.class, id);
             return project;
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+            session.flush();
             session.getTransaction().commit();
-            session.close();
+            session.clear();
         }
         return null;
     }
@@ -56,8 +60,9 @@ public class ProjectDAOImplH implements ProjectsDAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            tx.commit();
-            session.close();
+           session.flush();
+           session.getTransaction().commit();
+           session.clear();
         }
     }
 
@@ -89,17 +94,17 @@ public class ProjectDAOImplH implements ProjectsDAO {
         return null;
     }
 
-    public List<Project> getAll() {
+    public Set<Project> getAll() {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         try {
-            return (List<Project>) session.createQuery("FROM Project").list();
+            return new HashSet<>(session.createQuery("FROM Project").list());
         } catch (HibernateException e) {
             e.printStackTrace();
         } finally {
             tx.commit();
             session.close();
         }
-        return Collections.emptyList();
+        return Collections.emptySet();
     }
 }
