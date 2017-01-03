@@ -1,6 +1,7 @@
 package com.goit.ee.module3.dao;
 
 import com.goit.ee.module3.dto.Developer;
+import com.goit.ee.module3.dto.Skill;
 import com.goit.ee.module3.util.HibernateSessionFactory;
 import org.hibernate.*;
 
@@ -9,20 +10,30 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static com.goit.ee.module3.contoller.ConsoleUtils.getParam;
+
 public class DevelopersDAOImplH implements DevelopersDAO {
 
     @Override
     public void create(Developer developer) {
+        SkillDAOImplH skillDAOImplH = new SkillDAOImplH();
+        Set<Skill> skills = new HashSet<>();
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         try {
+            System.out.println(skillDAOImplH.getAll());
+            long numbersSkills = getParam("Number of skills");
+            for (int i = 0; i < numbersSkills; i++) {
+                skills.add(session.get(Skill.class, getParam("id of skill")));
+            }
+            developer.setSkills(skills);
             session.save(developer);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-           session.flush();
-           session.getTransaction().commit();
-           session.clear();
+            session.flush();
+            session.getTransaction().commit();
+            session.clear();
         }
     }
 

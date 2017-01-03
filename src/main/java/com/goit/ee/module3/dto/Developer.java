@@ -28,7 +28,7 @@ public class Developer {
     @Column(name = "salary")
     private int salary;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Skill.class)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "dev_skills",
             joinColumns = @JoinColumn(name = "id_dev"),
             inverseJoinColumns = @JoinColumn(name = "id_skills"))

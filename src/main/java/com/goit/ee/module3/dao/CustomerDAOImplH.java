@@ -71,11 +71,9 @@ public class CustomerDAOImplH implements CustomerDAO {
 
     @Override
     public void delete(long id) {
-
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         Transaction tr = session.beginTransaction();
         Customer customer = (Customer) session.load(Customer.class, id);
-
         if (customer.getProjects().size() != 0) {
             while (customer.getProjects().iterator().hasNext()) {
                 long idProject = customer.getProjects().iterator().next().getId();

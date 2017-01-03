@@ -24,11 +24,11 @@ public class DeveloperController implements Executable {
         developer.setLastName(readParameter("Last Name"));
         developer.setAge((int) getParam("Age"));
         developer.setSalary((int) getParam("Salary"));
-        developer.setSkills(skill());
+        //developer.setSkills(skill());
         return developer;
     }
 
-    private Set<Skill> skill() {
+    /*private Set<Skill> skill() {
         Set<Skill> skillList = new HashSet<>();
         long numbersSkills;
         SkillDAOImplH skillDAOImplH = new SkillDAOImplH();
@@ -38,7 +38,7 @@ public class DeveloperController implements Executable {
             skillList.add(skillDAOImplH.get(getParam("id of skill")));
         }
         return skillList;
-    }
+    }*/
 
     @Override
     public void execute(Command command) {

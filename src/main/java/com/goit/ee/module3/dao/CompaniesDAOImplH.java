@@ -1,6 +1,7 @@
 package com.goit.ee.module3.dao;
 
 import com.goit.ee.module3.dto.Company;
+import com.goit.ee.module3.util.HibernateSessionFactory;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -8,31 +9,51 @@ import java.util.List;
 
 public class CompaniesDAOImplH implements CompaniesDAO {
 
-    private Session session;
-
     @Override
     public void create(Company company) {
+        Session session = HibernateSessionFactory.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         try {
             session.save(company);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            tx.commit();
+            session.getTransaction().commit();
             session.close();
         }
-
     }
 
     @Override
     public Company get(long id) {
+        Session session = HibernateSessionFactory.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
-        Object persisntanceIntance = session.load(Company.class, id);
-        return (Company) persisntanceIntance;
+        try {
+            return session.load(Company.class, id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.getTransaction().commit();
+            session.close();
+        }
+        return null;
     }
 
     @Override
     public void update(Company company, long id) {
+        Session session = HibernateSessionFactory.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+        try {
+            Company company1 = session.load(Company.class, id);
+            company1.setName(company.getName());
+            company1.setAddress(company.getAddress());
+            company1.setProjects(company.getProjects());
+            session.update(company1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.getTransaction().commit();
+            session.close();
+        }
 
     }
 
@@ -47,11 +68,8 @@ public class CompaniesDAOImplH implements CompaniesDAO {
     }
 
     public List getAll() {
+        Session session = HibernateSessionFactory.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         return session.createQuery("select c from Company c").list();
-    }
-
-    public void setSession(Session session) {
-        this.session = session;
     }
 }
