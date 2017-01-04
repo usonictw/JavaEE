@@ -16,11 +16,11 @@ public class CustomerController implements Executable {
         Customer customer = new Customer();
         customer.setName(readParameter("name of customer"));
         customer.setAddress(readParameter("address of customer"));
-        customer.setProjects(customer());
+        //customer.setProjects(projects());
         return customer;
     }
 
-    private Set<Project> customer(){
+    /*private Set<Project> projects(){
         Set<Project> projectSet = new HashSet<>();
         long numberProject;
         ProjectDAOImplH projectDAOImplH = new ProjectDAOImplH();
@@ -30,7 +30,7 @@ public class CustomerController implements Executable {
             projectSet.add(projectDAOImplH.get(getParam("id of project")));
         }
         return projectSet;
-    }
+    }*/
 
     @Override
     public void execute(Command command) {

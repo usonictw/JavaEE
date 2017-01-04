@@ -20,11 +20,11 @@ public class ProjectController implements Executable {
         Project project = new Project();
         project.setName(readParameter("name of project"));
         project.setCost(getParam("cost"));
-        project.setDevelopers(developers());
+        //project.setDevelopers(developers());
         return project;
     }
 
-    private Set<Developer> developers() {
+    /*private Set<Developer> developers() {
 
         long numberOfDevelopers;
         Set<Developer> developerList = new HashSet<>();
@@ -35,7 +35,7 @@ public class ProjectController implements Executable {
             developerList.add(developersDAOImplH.get(getParam("id of developer")));
         }
         return developerList;
-    }
+    }*/
 
     @Override
     public void execute(Command command) {

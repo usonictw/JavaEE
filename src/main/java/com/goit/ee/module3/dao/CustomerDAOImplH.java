@@ -12,15 +12,24 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class CustomerDAOImplH implements CustomerDAO {
+import static com.goit.ee.module3.contoller.ConsoleUtils.getParam;
 
+public class CustomerDAOImplH implements CustomerDAO {
 
     @Override
     public void create(Customer customer) {
-
+        Set<Project> projectSet = new HashSet<>();
+        ProjectDAOImplH projectDAOImplH = new ProjectDAOImplH();
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         Transaction tr = session.beginTransaction();
         try {
+            long numberProject;
+            projectDAOImplH.getAll().forEach(System.out::println);
+            numberProject = getParam("number of project");
+            for (int i = 0; i < numberProject; i++){
+                projectSet.add((Project) session.get(Project.class, getParam("id of project")));
+            }
+            customer.setProjects(projectSet);
             session.save(customer);
         } catch (Exception e) {
             e.printStackTrace();
@@ -50,15 +59,21 @@ public class CustomerDAOImplH implements CustomerDAO {
 
     @Override
     public void update(Customer customer, long id) {
-
+        Set<Project> projectSet = new HashSet<>();
+        ProjectDAOImplH projectDAOImplH = new ProjectDAOImplH();
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         Transaction tr = session.beginTransaction();
-
         try {
             Customer proxyCustomer = (Customer) session.load(Customer.class, id);
             proxyCustomer.setName(customer.getName());
             proxyCustomer.setAddress(customer.getAddress());
-            proxyCustomer.setProjects(customer.getProjects());
+            long numberProject;
+            projectDAOImplH.getAll().forEach(System.out::println);
+            numberProject = getParam("number of project");
+            for (int i = 0; i < numberProject; i++){
+                projectSet.add((Project) session.get(Project.class, getParam("id of project")));
+            }
+            proxyCustomer.setProjects(projectSet);
             session.update(proxyCustomer);
         } catch (Exception e) {
             e.printStackTrace();

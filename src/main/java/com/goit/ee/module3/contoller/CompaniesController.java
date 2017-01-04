@@ -8,6 +8,12 @@ import static com.goit.ee.module3.contoller.ConsoleUtils.readParameter;
 
 public class CompaniesController implements Executable {
 
+    private Company createCompany() {
+        Company company = new Company();
+        company.setName(readParameter("name of company"));
+        company.setAddress(readParameter("address of company"));
+        return company;
+    }
 
     @Override
     public void execute(Command command) {
@@ -16,24 +22,19 @@ public class CompaniesController implements Executable {
 
         switch (command) {
             case CREATE:
-                Company company = new Company();
-                company.setName(readParameter("name"));
-                company.setAddress(readParameter("address"));
-                companiesDAO.create(company);
+                companiesDAO.create(createCompany());
                 break;
             case READ:
-                companiesDAO.get(getParam("id"));
+                System.out.println(companiesDAO.get(getParam("id of company")));
                 break;
             case UPDATE:
-                companiesDAO.update(new Company(getParam("id"),
-                        readParameter("name"),
-                        readParameter("address")), getParam("id"));
+                companiesDAO.update(createCompany(), getParam("id of company"));
                 break;
             case DELETE:
-                companiesDAO.delete(getParam("id"));
+                companiesDAO.delete(getParam("id of company"));
                 break;
             case GET_ALL:
-                companiesDAO.getAll();
+                companiesDAO.getAll().forEach(System.out::println);
                 break;
             default:
                 System.out.println("Not found command");

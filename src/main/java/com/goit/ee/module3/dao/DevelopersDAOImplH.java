@@ -24,7 +24,7 @@ public class DevelopersDAOImplH implements DevelopersDAO {
             System.out.println(skillDAOImplH.getAll());
             long numbersSkills = getParam("Number of skills");
             for (int i = 0; i < numbersSkills; i++) {
-                skills.add(session.get(Skill.class, getParam("id of skill")));
+                skills.add((Skill) session.get(Skill.class, getParam("id of skill")));
             }
             developer.setSkills(skills);
             session.save(developer);
@@ -55,6 +55,8 @@ public class DevelopersDAOImplH implements DevelopersDAO {
 
     @Override
     public void update(Developer developer, long id) {
+        SkillDAOImplH skillDAOImplH = new SkillDAOImplH();
+        Set<Skill> skills = new HashSet<>();
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         try {
@@ -63,7 +65,12 @@ public class DevelopersDAOImplH implements DevelopersDAO {
             proxyDeveloper.setLastName(developer.getLastName());
             proxyDeveloper.setSalary(developer.getSalary());
             proxyDeveloper.setAge(developer.getAge());
-            proxyDeveloper.setSkills(developer.getSkills());
+            System.out.println(skillDAOImplH.getAll());
+            long numbersSkills = getParam("Number of skills");
+            for (int i = 0; i < numbersSkills; i++) {
+                skills.add((Skill) session.get(Skill.class, getParam("id of skill")));
+            }
+            proxyDeveloper.setSkills(skills);
             session.update(proxyDeveloper);
         } catch (Exception e) {
             e.printStackTrace();
