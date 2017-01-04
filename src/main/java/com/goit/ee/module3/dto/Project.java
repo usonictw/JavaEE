@@ -90,11 +90,19 @@ public class Project {
 
     @Override
     public String toString() {
-        return "Project{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", cost=" + cost + "} :" + "\n" +
-                " developers: " + "\n" + "  " + developers +
-                "\n";
+
+        StringBuffer sb = new StringBuffer();
+        sb.append("Project: \n");
+        sb.append("id = ").append(getId() + "; ");
+        sb.append("Name: ").append(getName() + "; ");
+        sb.append("Cost: ").append(getCost() + "\n");
+        developers.forEach(developer -> sb.append("Developer: \n").append("id = ").append(developer.getId() + "; ")
+                .append("First Name: ").append(developer.getFirstName() + "; ")
+                .append("Last Name: ").append(developer.getLastName() + "; ")
+                .append("Age: ").append(developer.getAge() + "; ")
+                .append("Salary: ").append(developer.getSalary() + ";\n")
+                .append(developer.getSkills() + "\n"));
+
+        return sb.toString();
     }
 }

@@ -124,13 +124,15 @@ public class Developer {
 
     @Override
     public String toString() {
-        return "Developer{" +
-                "id=" + id +
-                ", age=" + age +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", salary=" + salary + "}" + "\n" +
-                " skills: " + "\n" + "  " + skills +
-                "\n";
+        StringBuffer sb = new StringBuffer();
+        sb.append("Developer:" + "\n");
+        sb.append("id = ").append(getId() + "; ");
+        sb.append("First Name: ").append(getFirstName() + "; ");
+        sb.append("Last Name: ").append(getLastName() + "; ");
+        sb.append("Age: ").append(getAge() + "; ");
+        sb.append("Salary: ").append(getSalary() + ";\n");
+        sb.append("Skills: \n");
+        skills.forEach(skill -> sb.append("id = ").append(skill.getId() + "  ").append("Name: ").append(skill.getName() + "\n"));
+        return sb.toString();
     }
 }

@@ -57,9 +57,10 @@ public class Skill {
 
     @Override
     public String toString() {
-        return "Skill{" +
-                "id=" + id + " " +
-                "name='" + name + '\'' +
-                '}';
+        StringBuffer sb = new StringBuffer();
+        sb.append("Skills :" + "\n");
+        sb.append("id = ").append(getId() + "; ");
+        sb.append("name: ").append(getName() + " \n");
+        return sb.toString();
     }
 }
